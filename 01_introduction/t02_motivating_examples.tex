@@ -1,0 +1,145 @@
+\documentclass[aspectratio=169]{../latex_main/tntbeamer}  % you can pass all options of the beamer class, e.g., 'handout' or 'aspectratio=43'
+\input{../latex_main/preamble}
+
+\title[Introduction]{iML: Introduction}
+\subtitle{Motivating Examples}
+
+%\institute{}
+
+
+\begin{document}
+	
+	\maketitle
+
+\begin{frame}[c]{Why is Interpretability Important?}
+	
+	\begin{itemize}
+	    \item Machine learning is (mostly) about discovering patterns in data
+	    \item Unfortunately, it is not guaranteed that ML will identify the correct patterns
+	    \pause
+	    \medskip
+	    \item We humans might not be able to discover patterns ML models discovered
+	    \begin{itemize}
+	        \item That's good for science or to get new insights
+	        \item That's bad in many practical application where unexpected behavior is not wanted
+	    \end{itemize}
+	    \medskip
+	    \pause
+	    \item \alert{How can you check whether the model is correct in its inference?}
+	\end{itemize}
+	
+\end{frame}
+
+\begin{frame}[c]{Clever Hans \lit{Lapuschkin et al. 2019}{https://www.nature.com/articles/s41467-019-08987-4}}
+	
+	\centering
+	\includegraphics[width=0.6\textwidth]{01_introduction/figure/horse_without_label.PNG}
+	
+\end{frame}
+
+\begin{frame}[c]{Clever Hans \lit{Lapuschkin et al. 2019}{https://www.nature.com/articles/s41467-019-08987-4}}
+	
+	\centering
+	\includegraphics[width=0.6\textwidth]{01_introduction/figure/horse_with_label.PNG}
+	
+\end{frame}
+
+\begin{frame}[c]{Clever Hans \lit{Lapuschkin et al. 2019}{https://www.nature.com/articles/s41467-019-08987-4}}
+	
+	\centering
+	\includegraphics[width=0.6\textwidth]{01_introduction/figure/horse_map_with_label.PNG}
+	
+\end{frame}
+
+\begin{frame}[c]{Clever Hans \lit{Lapuschkin et al. 2019}{https://www.nature.com/articles/s41467-019-08987-4}}
+	
+	\centering
+	\includegraphics[width=0.6\textwidth]{01_introduction/figure/horse_map_without_label.PNG}
+	
+\end{frame}
+
+\begin{frame}[c]{Clever Hans \lit{Lapuschkin et al. 2019}{https://www.nature.com/articles/s41467-019-08987-4}}
+	
+	\centering
+	\includegraphics[width=0.6\textwidth]{01_introduction/figure/boats_maps.PNG}
+	
+\end{frame}
+
+\begin{frame}[c]{COMPASS}
+
+    \begin{itemize}
+        \item Correctional Offender Management Profiling for Alternative Sanctions 
+        \item predict recidivism risk
+        \begin{itemize}
+            \item i.e., criminal re-offense after previous crime, resulting in jail booking
+            \item different risk levels: high risk, medium risk or low risk
+        \end{itemize}
+        \item evaluation based on a questionnaire the defendant has to answer
+    \end{itemize}	
+	
+\end{frame}
+
+\begin{frame}[c]{COMPAS Model Analysis~\lit{Larson et al. 2016}{https://www.propublica.org/article/how-we-analyzed-the-compas-recidivism-algorithm}}
+    
+    \centering
+    \includegraphics[width=0.7\textwidth]{01_introduction/figure/compass_black_white.PNG}
+	
+	$\leadsto$ Strong indication that the model is discriminating black defendants
+	
+\end{frame}
+
+\begin{frame}[c]{Other Examples ML failed in}
+
+    \begin{itemize}
+        \item Credit and insurance scoring
+        \pause
+        \item Medical applications
+        \begin{itemize}
+            \item Identification of diseases
+            \item Chance of recovering
+            \item Recommendations of treatments
+        \end{itemize}
+        \pause
+        \item Crime predictions
+        \pause
+        \item Rating job applications
+        \pause
+        \item \ldots
+    \end{itemize}
+
+    \pause
+    \bigskip
+
+    $\leadsto$ GDPR (aka DSGVO) requires that for some applications predictive models have to be explainable        
+	
+\end{frame}
+
+
+
+\begin{frame}[c]{Adversarial Examples~\lit{Goodfellow et al. 2016}{https://arxiv.org/pdf/1412.6572.pdf}}
+    
+    \centering
+    \includegraphics[width=0.7\textwidth]{01_introduction/figure/panda-airplane.pdf}
+	
+	$\leadsto$ ML Models might not capture human-like understanding.        
+	
+\end{frame}
+
+	
+\begin{frame}[c]{Adversarial Noise~\lit{Goodfellow et al. 2016}{https://arxiv.org/pdf/1412.6572.pdf}}
+    
+    \centering
+    \includegraphics[width=0.6\textwidth]{01_introduction/figure/adv-noise.pdf}
+	
+	$\leadsto$ \textbf{Adversarial Noise:} Noise that is imperceptible to \textbf{humans}\\ but results in incorrect classification results
+	
+\end{frame}
+
+\begin{frame}[c]{Adversarial Examples~\lit{Goodfellow et al. 2016}{https://arxiv.org/pdf/1412.6572.pdf}}
+    
+    \centering
+    \includegraphics[width=0.7\textwidth]{01_introduction/figure/adv-noise-2.pdf}
+	
+\end{frame}
+
+\end{document}

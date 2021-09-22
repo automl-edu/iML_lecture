@@ -1,0 +1,108 @@
+\documentclass[aspectratio=169]{../latex_main/tntbeamer}  % you can pass all options of the beamer class, e.g., 'handout' or 'aspectratio=43'
+\input{../latex_main/preamble}
+
+\title[Introduction]{iML: Interpretable Models}
+\subtitle{Exemplary Applications}
+
+%\institute{}
+
+
+\begin{document}
+	
+	\maketitle
+
+	%-----------------------------------------------------------------------------------------------------------------------------
+
+    \begin{frame}{Bike Rentals (Regression)}
+        
+        \begin{itemize}
+            \item Target: number of rented bikes
+            \item Source: bicycle rental company Capital-Bikeshare in Washington D.C.,
+            \item Reference: \lit{Fanaee-T and Gama. 2014}{https://link.springer.com/article/10.1007/s13748-013-0040-3}
+            \item Exemplary features:
+            \begin{itemize}
+                \item season: spring, summer, fall or winter.
+                \item holiday or not.
+                \item working day or weekend
+                \item weather situation on that day 
+                \item temperature
+            \end{itemize}
+        \end{itemize}
+        
+    \end{frame}
+    
+    \begin{frame}{Regression on Bike Rentals}
+        
+        \centering
+        \includegraphics[width=0.55\textwidth]{02_interpretable_models/figures/lin_bikesharing.png}        
+
+    \end{frame}
+    
+    \begin{frame}{Decision Tree on Bike Rentals}
+        
+        \centering
+        \includegraphics[width=0.55\textwidth]{02_interpretable_models/figures/dt_bike_sharing.png}        
+
+    \end{frame}
+    
+    \begin{frame}{Risk Factors for Cervical Cancer (Classification)}
+        
+        \begin{itemize}
+            \item Target: patient will get cancer or not?
+            \item Reference: \lit{Fernandes et al. 2017}{https://link.springer.com/chapter/10.1007/978-3-319-58838-4_27}
+            \item Exemplary features:
+            \begin{itemize}
+                \item Age in years
+                \item Number of sexual partners
+                \item First sexual intercourse (age in years)
+                \item Number of pregnancies
+                \item Smoking yes or no
+                \item Smoking (in years)
+                \item Hormonal contraceptives yes or no
+                \item Hormonal contraceptives (in years)
+                \item Intrauterine device yes or no (IUD)
+            \end{itemize}
+        \end{itemize}
+        
+    \end{frame}
+	
+	\begin{frame}{Logistic Regression on  Cancer (Classification)}
+        
+        \centering
+        \includegraphics[width=0.55\textwidth]{02_interpretable_models/figures/lin_cancer.png}     
+        
+    \end{frame}
+	
+	\begin{frame}{Decision Tree on  Cancer (Classification)}
+        
+        \centering
+        \includegraphics[width=0.55\textwidth]{02_interpretable_models/figures/dt_cancer.png}     
+    \end{frame}
+	
+	\begin{frame}{Prediction Performance}
+        
+        \begin{itemize}
+            \item Bike Rental (normalized MSE):
+            \begin{itemize}
+                \item Linear Regression: 0.0276
+                \item Decision Tree: 0.0328
+                \item GLM: 0.0244
+            \end{itemize}
+            \pause
+            \medskip
+            \item Cancer (Accuracy)
+            \begin{itemize}
+                \item Logistic Regression: 0.58
+                \item Decision Tree: 0.62
+            \end{itemize}
+            \pause
+            \smallskip
+            \item[$\leadsto$] although easy to interpret, not really well-performing 
+            \begin{itemize}
+                \item Boosting: 0.79
+            \end{itemize}
+        \end{itemize}
+        
+    \end{frame}
+	
+\end{document}

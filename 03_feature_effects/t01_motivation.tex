@@ -1,0 +1,55 @@
+\documentclass[aspectratio=169]{../latex_main/tntbeamer}  % you can pass all options of the beamer class, e.g., 'handout' or 'aspectratio=43'
+\input{../latex_main/preamble}
+
+\title[Introduction]{iML: Feature Effects}
+\subtitle{Motivation}
+
+%\institute{}
+
+
+\begin{document}
+	
+	\maketitle
+
+	%-----------------------------------------------------------------------------------------------------------------------------
+
+\begin{frame}[c]{Model-Agnostic vs. Model-Specific Methods}
+
+    \begin{description}
+        \item[Model-agnostic] methods can be applied to all kinds of predictive models to explain them
+        \medskip
+        \item[Model-specific] methods can only be applied to one model-class by making use of how the model is represented or constructed
+    \end{description}
+
+\end{frame}
+
+\begin{frame}[c]{Advantages of Model-Agnostic Methods \lit{Ribeiro et al. 2016}{https://arxiv.org/abs/1606.05386}}
+
+    \begin{description}
+        \item[Model Flexibility:] Method can be applied to any predictive model, e.g., RFs or DNNs
+        \item[Explanation flexibility:] Different explanations can be applied (based on the needs of the user)
+        \item[Representation Flexibility:] Different representations of features (e.g., tabular, images or text) should be applicable.
+    \end{description}
+
+\end{frame}
+
+\begin{frame}[c]{Flow of Information}
+
+    \begin{enumerate}
+        \item \textbf{World/Environment}: is where agents (incl. us humans) act and which is the ultimately the thing we would like to explain
+        \pause\smallskip
+        \item \textbf{Data}: is sampled or observed from the world and acts as a first abstraction layer, since we will never observed all kind of data
+        \pause\smallskip
+        \item \textbf{Predictive Model}: (tries to) generalize over the data by finding a compact representation of them, and is used to reason over the world
+        \pause\smallskip
+        \item \textbf{Interpretations}: explain the predictive model. Attention: Only indirect (and maybe error-prone) explanations of the world!
+        \pause\smallskip
+        \item \textbf{Human}: perceives the explanations and reasons over her/his observations -- incl. another potential source of error
+    \end{enumerate}
+    
+    \alert{$\leadsto$ Unlikely that we will obtain a good explanation of the world at the very end (i.e. the human).}
+\end{frame}
+
+
+	
+\end{document}

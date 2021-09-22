@@ -1,0 +1,75 @@
+\documentclass[aspectratio=169]{../latex_main/tntbeamer}  % you can pass all options of the beamer class, e.g., 'handout' or 'aspectratio=43'
+\input{../latex_main/preamble}
+
+\title[Introduction]{iML: Feature Effects}
+\subtitle{Examples}
+
+%\institute{}
+
+
+\begin{document}
+	
+	\maketitle
+
+	%-----------------------------------------------------------------------------------------------------------------------------
+
+\begin{frame}[c]{Interpretation: PD and ICE}
+\begin{center}
+\includegraphics[width=0.4\textwidth]{figure/bike-sharing-dataset01.png}
+\end{center}
+
+\begin{itemize}
+\item
+  \textbf{ICE curve:} Visualize how the prediction of an
+  \textbf{individual observation} changes if the feature value is
+  changed.\\
+  \(\Rightarrow\) ICE is a local interpretation method (black curves).
+\item
+  \textbf{PD plot:} Visualizes the \textbf{average effect of a feature},
+  i.e., how the expected model prediction changes if the feature value is changed.\\
+  \(\Rightarrow\) PD plot is a global interpretation method (yellow curve).
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Bike Sharing Dataset: First Order ALE}
+
+The PD (left) often looks very similar to the (centered) first order ALE (right) but on a different scale. In the case of correlated features, the ALE is a better option due to the PD's extrapolation issues.
+
+
+\begin{center}
+\includegraphics[width=0.5\textwidth]{figure/first-order.png}
+\end{center}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Bike Sharing Dataset: Second Order ALE}
+
+It is possible to estimate ALEs of higher order, e.g., second order ALEs. As opposed to the bivariate PD, the second order ALE corresponds to an estimate of the interaction between two features only, i.e., first order effects have been substracted.
+
+\vspace{0.1cm}
+
+\begin{center}
+\includegraphics[width=0.49\textwidth]{figure/second-order.png}
+\end{center}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Cancer Dataset: ICE, PDP, ALE}
+
+TODO Rene
+
+\end{frame}
+
+
+	
+\end{document}

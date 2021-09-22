@@ -1,0 +1,60 @@
+\documentclass[aspectratio=169]{../latex_main/tntbeamer}  % you can pass all options of the beamer class, e.g., 'handout' or 'aspectratio=43'
+\input{../latex_main/preamble}
+
+\title[Introduction]{iML: Interpretable Models}
+\subtitle{Pitfalls and Problems}
+
+%\institute{}
+
+
+\begin{document}
+	
+	\maketitle
+
+	%-----------------------------------------------------------------------------------------------------------------------------
+    
+    \begin{frame}[c]{1. Violating of Assumptions}
+    
+        \begin{itemize}
+            \item Most models have some underlying assumptions
+            \begin{itemize}
+                \item if there are feature interactions for a linear regression model (e.g., strong correlation), interpreting the weights is meaningless
+                \item[$\leadsto$] there could be many weights explaining the data with the same quality but different explanations
+            \end{itemize}
+        \end{itemize}
+    
+    \end{frame}
+    
+    %-----------------------------------------------------------------------------------------------------------------------------
+    
+    \begin{frame}[c]{2. Increasing Complexity of Models}
+    
+        \begin{itemize}
+            \item Even interpretable models can become uncomprehensible if too complex;\\
+            For example
+            \begin{itemize}
+                \item complex feature transformations with GAMs
+                \item very deep trees
+            \end{itemize}
+            
+        \end{itemize}
+    
+    \end{frame}
+    
+    %-----------------------------------------------------------------------------------------------------------------------------
+    
+    \begin{frame}[c]{3. Poor Model Fit}
+    
+        \begin{itemize}
+            \item If the model does not fit well the data, there is not point in interpreting the model;\\
+            For example
+            \begin{itemize}
+                \item Decision trees tend to over-fit the data
+                \item Linear models often underfit complex data
+            \end{itemize}
+        \end{itemize}
+    
+    \end{frame}
+
+	
+\end{document}

@@ -1,0 +1,119 @@
+\documentclass[aspectratio=169]{../latex_main/tntbeamer}  % you can pass all options of the beamer class, e.g., 'handout' or 'aspectratio=43'
+\input{../latex_main/preamble}
+
+\title[Introduction]{iML: Shapley Values}
+\subtitle{Introduction}
+
+%\institute{}
+
+
+\begin{document}
+	
+	\maketitle
+	
+	\begin{frame}[c]{Example}
+	
+	\begin{itemize}
+	    \item Exemplary model for predicting apartment price
+	    \item Inputs
+	    \begin{itemize}
+	        \item Size (m$^2$)
+	        \item location (e.g., floor)
+	        \item close by (e.g., train station)
+	        \item pets allowed?
+	    \end{itemize}
+	    \item Average apartment price is 310k
+	    \pause
+	    \bigskip
+	    \item Query: 50m$^2$, 2nd floor, park close by, pets not allowed
+	    \item Prediction: 300k
+	    \item[$\leadsto$] Why?
+	\end{itemize}
+	
+	\end{frame}
+
+\begin{frame}[c]{Example (cont'd)}
+	
+	\begin{itemize}
+	    \item Query: 50m$^2$, 2nd floor, park close by, pets not allowed
+	    \item Prediction: 300k
+	    \item[$\leadsto$] Why?
+	    \bigskip
+        \item Possible approaches: linear models or LIME
+        \item \alert{New question:} Under all possible subsets of features, how much would feature $S$ contribute to the prediction?
+	\end{itemize}
+	
+\end{frame}
+
+\begin{frame}[c]{Shapley Values}
+	
+	\begin{itemize}
+	    \item Origin in game theory \lit{Shapley 1953}{}
+	    \begin{itemize}
+	        \item How much does a player contributes to the total payout (i.e., gain) under different coalitions with other players?
+	    \end{itemize}
+	    \pause
+	    \item Relation to iML:
+	    \begin{itemize}
+	        \item Game: Prediction task
+	        \item Players: Features values of the instance 
+	        \item Gain: Difference between actual prediction and average prediction $\leadsto$ -10k in our example
+	    \end{itemize}
+    	\pause
+    	\smallskip
+    	\item The answer could be: park close by $\leadsto$ 30k, 50m$^2$ $\leadsto$ 10k, 2nd floor $\leadsto$ 0k, pets banned $\leadsto$ -50k
+    	\pause
+    	\smallskip
+    	\item[$\leadsto$] Shapley value: Average marginal contribution of a feature value across all possible coalitions.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[c]{Shapley Values: In a Nutshell}
+	
+	\begin{itemize}
+	    \item For all possible subsets of features (i.e., coalition):
+	    \begin{enumerate}
+	        \item add feature value under consideration to the coalition once and once a random value
+	        \item randomly change features not being in the coalition for both samples
+	        \item predict difference between both samples
+	        \item[$\leadsto$] marginal contribution of feature to coalition
+	    \end{enumerate}
+	    
+	 \end{itemize}
+\end{frame}
+
+\begin{frame}[c]{Shapley Values: Continued example}
+	
+	\begin{itemize}
+	    \item Possible coalition for example if we consider \alert{pet}:
+	    \begin{itemize}
+	        \item $\emptyset$ (no features)
+	        \item size
+	        \item location
+	        \item close-by
+	        \item size + location
+	        \item size + close-by
+	        \item location + close-by
+	        \item size + location + close-by
+	    \end{itemize}
+	    
+	 \end{itemize}
+\end{frame}
+
+\begin{frame}[c]{Shapley Values: Continued example}
+	
+	\begin{itemize}
+	    \item Exemplary coalition: size
+	    \item Considered feature value: pets banned
+	    \item considered, randomly sampled feature vectors:
+	    \begin{enumerate}
+	        \item size:50, pets:banned, location: 3rd, close-by:train-station\\
+	        size:50, pets:allowed, location: 3rd, close-by:train-station\\
+	        \item size:50, pets:banned, location: 1st close-by:park\\
+	        size:50, pets:allowed, location: 1st, close-by:park\\
+	        \item \ldots
+	    \end{enumerate}
+	 \end{itemize}
+\end{frame}
+
+\end{document}

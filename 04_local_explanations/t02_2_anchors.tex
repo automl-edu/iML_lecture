@@ -1,0 +1,194 @@
+\documentclass[aspectratio=169]{../latex_main/tntbeamer}  % you can pass all options of the beamer class, e.g., 'handout' or 'aspectratio=43'
+\input{../latex_main/preamble}
+
+\title[Introduction]{iML: Local Explanations}
+\subtitle{Anchors}
+
+%\institute{}
+
+
+\begin{document}
+	
+	\maketitle
+
+	%-----------------------------------------------------------------------------------------------------------------------------
+
+
+\begin{frame}{Anchors \lit{Ribeiro et al. 2018}{https://homes.cs.washington.edu/~marcotcr/aaai18.pdf}}
+\begin{itemize}
+		\item local explanation of a single prediction $x$
+		\begin{itemize}
+		    \item successor of LIME
+		\end{itemize}
+		\pause
+		\item[$\leadsto$] finding a rule that "anchors" the prediction
+		\item[$\leadsto$] "anchors" i.e., focus on the feature value responsible for the prediction
+		\pause
+		\smallskip
+		\item (again) perturbation-based strategy for generation of local explanations
+		\pause
+		\smallskip
+		\item explanations are expressed as IF-THEN rules, a.k.a. anchors
+\end{itemize}
+\end{frame}
+
+%---------------------------------------------------------
+
+\begin{frame}[fragile]{Example Anchor}
+\begin{itemize}
+        \item Example from Titanic dataset: Who would survive?
+		\item Input $x$ = \{'age': 20, 'sex': female, 'class': first, 'ticketPrice': 300, \ldots\}
+		\item Prediction: 'survived': True
+		\item Exemplary anchor:
+\end{itemize}
+
+\begin{verbatim}
+    IF SEX = female
+    AND Class = first
+    THEN PREDICT Survived = true
+    WITH PRECISION 97%
+    AND COVERAGE 15%
+\end{verbatim}
+
+\end{frame}
+
+%---------------------------------------------------------
+
+\begin{frame}[c]{Discussion of Anchors}
+
+\begin{itemize}
+    \item very easy to understand
+    \smallskip
+    \pause
+    \item includes the notion of coverage
+    \begin{itemize}
+        \item[$\leadsto$] too how much of the (feasible) space would the rule apply to
+        \item faithful by design
+        \item should be maximized!
+    \end{itemize}
+    \smallskip
+    \pause
+    \item includes precision:
+    \begin{itemize}
+        \item[$\leadsto$] precision of the rule in its subspace
+        \item should be maximized!
+    \end{itemize}
+    \smallskip
+    \pause
+    \item Trade-off between high coverage and high precision
+    \begin{itemize}
+        \item maximal coverage would be a constant predictor for the entire space $\leadsto$ poor precision
+        \item maximal precision would lead to a very small subspace $\leadsto$ small coverage
+    \end{itemize}
+    
+\end{itemize}
+
+
+\end{frame}
+
+%---------------------------------------------------------
+
+\begin{frame}[c]{Visualisation of an Anchor}
+
+\centering
+\includegraphics[width=0.5\textwidth]{04_local_explanations/figure/anchors-visualization_orig.png}\\
+Source: \lit{Ribeiro et al. 2018}{https://homes.cs.washington.edu/~marcotcr/aaai18.pdf}
+
+\end{frame}
+
+%---------------------------------------------------------
+
+\begin{frame}[c]{Definition Anchor}
+
+An anchor is defined as:
+
+\begin{equation}
+    \mathbb{E}_{\mathcal{D}_x(z\mid A)} [\mathbb{1}_{f(x) = f(z)}] \leq \tau, \text{ s.t. } A(x) = 1
+\end{equation}
+
+with 
+
+\begin{itemize}
+    \item x being the instance at hand (to be explained)
+    \item A being a set of predicates, i.e.,  the anchor's if statement
+    \begin{itemize}
+        \item side constraint: $A(x)$ has to be satisfied for the given feature vector $x$
+    \end{itemize}
+    \item $f$ being the predictive model to be explained -- can be queried
+    \item $\mathcal{D}(\cdot \mid A)$ indicates the distribution of neighbors of $x$, matching A.
+    \item $0 \leq \tau \leq 1$ specifies a precision threshold
+\end{itemize}
+
+\end{frame}
+
+%---------------------------------------------------------
+
+\begin{frame}[c]{Relaxing Anchor's Definition}
+
+\begin{itemize}
+    \item combinatorial problem to find an anchor
+    \item hard to evaluate precision in a continuous or large feature space
+    \item Relaxation of the problem:
+\end{itemize}
+
+$$P( prec(A) \geq \tau) \geq 1  - \delta \text{ with } prec(A)  = \mathbb{E}_{\mathcal{D}_x(z\mid A)} [\mathbb{1}_{f(x) = f(z)}] $$
+
+with $\delta$ being a probability threshold to each desired precision.
+
+\pause
+\medskip
+
+$\leadsto$ If $\delta$ is very small:
+\begin{description}
+    \item[a)] very hard to find $A$
+    \item[b)] high confidence to that precision is achieved
+\end{description}
+(similar to $\alpha$ in a statistical hypothesis test.)
+
+\end{frame}
+
+%---------------------------------------------------------
+
+\begin{frame}[c]{Considering Coverage}
+
+\begin{itemize}
+    \item Additionaly, we want to maximize the coverage of the anchor\\ w.r.t. to the neighborhood distribution $\mathcal{D}$
+\end{itemize}
+
+$$\max_{A} cov(A) = \max_{A} \mathbb{E}_{\mathcal{D}(z)[A(z)]} $$
+
+
+\end{frame}
+
+%---------------------------------------------------------
+
+\begin{frame}[c]{Final Anchor Optimization Problem}
+
+\begin{equation}
+\max_{A} cov(A) \text{ s.t. } P(prec(A) \geq \tau) \geq 1 - \delta
+\end{equation}
+
+\begin{itemize}
+    \item Bound $\tau$ on precision with confidence $\delta$
+    \item and maximization of coverage
+\end{itemize}
+
+
+\end{frame}
+
+%---------------------------------------------------------
+
+\begin{frame}[c]{Anchor Algorithm Outline \lit{Ribeiro et al. 2018}{https://homes.cs.washington.edu/~marcotcr/aaai18.pdf}}
+
+\begin{enumerate}
+
+    \item \textbf{Initialization} One anchor for each $x_i$ in given $x$
+    \item \textbf{Candidate Update} Add another $x_i$ not considered in A so far
+    \item \textbf{Best Candidate Identification} use multi-armed-bandit approach to focus investment in model predictions into promising anchors 
+    \item \textbf{Selection} Use beam search to only consider $B$ best anchors in each iteration 
+\end{enumerate}
+
+\end{frame}
+
+
+\end{document}

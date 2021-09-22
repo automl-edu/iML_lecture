@@ -1,0 +1,92 @@
+\documentclass[aspectratio=169]{../latex_main/tntbeamer}  % you can pass all options of the beamer class, e.g., 'handout' or 'aspectratio=43'
+\input{../latex_main/preamble}
+
+\title[Introduction]{iML: Shapley Values}
+\subtitle{Discussion}
+
+%\institute{}
+
+
+\begin{document}
+	
+	\maketitle
+	
+\begin{frame}{Advantage: Fair Distribution and Solid Theory}
+    
+    \begin{itemize}
+        \item the \emph{efficiency} property ensures that there is a fair distribution between the prediction and the average prediction 
+        \item proven by the solid theoretical foundation of Shapley values 
+        \begin{itemize}
+            \item not given for most (all?) other methods discussed in this lecture
+        \end{itemize}
+    \end{itemize}
+    
+\end{frame}
+
+	
+\begin{frame}{Disadvantage: Expensive}
+    
+    \begin{itemize}
+        \item Computation of exact Shapley values is often infeasible (in high-dimensional spaces)
+        \begin{itemize}
+            \item $2^k$ possible feature subsets
+            \item The contribution to each feature subsets needs further random samples
+        \end{itemize}
+        \pause
+        \bigskip
+        \item[$\leadsto$] Approximation of Shapley values via sampling
+        \item However, number of samples required for a good approximation is unknown a priori
+    \end{itemize}
+    
+\end{frame}
+
+\begin{frame}{Disadvantage: Interpretation}
+    
+    \begin{itemize}
+        \item Shapley values are not really intuitive
+        \item It's the contribution of a feature value to the difference between the actual prediction and the average prediction
+        \item For people outside of ML (and economics), it might be hard to imaging all the possible feature subsets and we care about the contribution to these
+    \end{itemize}
+    
+\end{frame}
+
+\begin{frame}{Disadvantage: Dense}
+    
+    \begin{itemize}
+        \item Each feature gets a Shapley value
+        \begin{itemize}
+            \item fairly unlikely that a reasonable feature gets $0$ as value
+        \end{itemize}
+        \item Humans often prefer sparse/selective explanations (especially in high-dimensional spaces)
+    \end{itemize}
+    
+\end{frame}
+
+\begin{frame}{Disadvantage: Hard to Act on It}
+    
+    \begin{itemize}
+        \item Counter factuals or LIME provide local explanations, which one can use to act on it\\ e.g., try to change features to obtain a more favorable outcome
+        \item Shapley values "only" provide a single number per feature, but it does not tell you how to improve wrt these
+        \begin{itemize}
+            \item Even weights of a linear model provide more direction to act on it
+        \end{itemize}
+        
+    \end{itemize}
+    
+\end{frame}
+
+\begin{frame}{Disadvantage: Access to the True Data}
+    
+    \begin{itemize}
+        \item Simply querying random feature vectors might lead to unreasonable feature importance
+        \item We need access to samples from the true data distribution
+        \begin{itemize}
+            \item For example, the training data
+        \end{itemize}
+        \item Often not possible if we only want to examine a foreign model
+    \end{itemize}
+    
+\end{frame}
+
+
+\end{document}

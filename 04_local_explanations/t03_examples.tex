@@ -1,0 +1,201 @@
+\documentclass[aspectratio=169]{../latex_main/tntbeamer}  % you can pass all options of the beamer class, e.g., 'handout' or 'aspectratio=43'
+\input{../latex_main/preamble}
+
+\title[Introduction]{iML: Local Explanations}
+\subtitle{Examples}
+
+%\institute{}
+
+
+\begin{document}
+	
+	\maketitle
+
+	%-----------------------------------------------------------------------------------------------------------------------------
+
+\begin{frame}{Credit Dataset}
+
+\vspace{-1.5em}
+	\begin{itemize}
+		\item Model: SVM with RBF kernel
+		\item $x$: first data point of the dataset with $\hat{f}_{bad}(x) = 0.658$
+		\item $z$: training data. They are weighted by the Gower proximity for mixed spaces. 
+		\item Surrogate model $g$: L1-regularized linear model with 5 features. 
+	\end{itemize}
+%\vspace{-0.5cm}
+	\begin{table}[ht]
+		\centering
+		\scriptsize
+		\begin{tabular}{rlrlllrrl}
+			\hline
+			age & sex & job & housing & saving & checking & credit.amount & duration & purpose \\ 
+			\hline
+			 22 & female &   2 & own & little & moderate & 5951 &  48 & radio/TV \\ 
+			\hline
+		\end{tabular}
+	\end{table}
+%\vspace{-0.5cm}
+\begin{center}
+	\includegraphics[width=0.45\textwidth]{figure/lime_credit.pdf}\\[-0.4em]
+	Effects of surrogate model, i.e. $w^\top x$.
+\end{center}
+
+\end{frame}
+%------------------------------------------------------
+\begin{frame}{Credit Dataset}
+
+\vspace{-2em}
+\begin{itemize}
+	\item The local model prediction for $x$ is $g(x) = 0.64$. 
+	\item $g$ has a local fidelity of $L(\hat{f}, g, n) = 4.82$ with $n(z)$ as the Gower proximity and $L(\hat{f}_{bad}(z), g(z))$ as the euclidean distance. 
+	\item 2-dim ICE plots (also called surface plot) of credit amount and duration show us how the surrogate model $g$ linearly approximates the previously nonlinear prediction surface of $\hat{f}_{bad}$. 
+\end{itemize}
+\vspace{-2em}
+ \begin{columns}
+	\begin{column}{0.35\textwidth}
+		\begin{center}
+		\includegraphics[width=1\textwidth]{figure/lime_credit_ice1.pdf}
+		\end{center}		
+	\end{column}
+	\begin{column}{0.35\textwidth}  
+		\begin{center}
+				\includegraphics[width=1\textwidth]{figure/lime_credit_ice2.pdf}
+		\end{center}
+			
+	\end{column}
+\end{columns}
+\begin{center}
+    real model $\hat{f}$ vs. surrogate $g$
+\end{center}
+%\vspace{-0.4cm}
+% \begin{center}
+% 		\tiny{\textbf{Figures:} 2-dim ICE plot of $\pih_{bad}$ (\textbf{left}) and surrogate $g$ (\textbf{right}) for features duration and credit amount. \\The white dot is $x$. The histograms display the marginal distribution of the training data $\Xmat$.}
+% \end{center}
+
+\end{frame}
+
+%\begin{frame}{Bike Sharing Dataset}
+%\vspace{-.3cm}
+%
+%\begin{center}
+%\includegraphics[width=0.7\textwidth]{figure/bike-figure.png}
+%\end{center} 
+%
+%\footnotesize \textbf{Figure:} LIME for two example instances of the bike sharing dataset.
+%
+%\normalsize
+%\vspace{0.2cm}
+%The plots show the feature effect of the sparse linear model, i.e. the model coefficients times the feature value of the instance.
+%Warmer temperature has a positive effect on the prediction, 
+%while the year 2011 has a large negative effect as well as the springtime.
+%\end{frame}
+
+\begin{frame}[c]{LIME for Text Data \lit{Shen 2019}{https://medium.com/just-another-data-scientist/explain-sentiment-prediction-with-lime-f90ae83da2da}}
+	\begin{itemize}
+		\item Raw text as a data frame by transforming it into a binary vector (e.g., a vector of word counts).
+		\item texts \textit{``This text is the first text."} and \textit{``Finally, this is the last one."}:
+		\begin{center}
+			\begin{tabular}{c|c|c|c|c|c|c|c} 
+				this & text & is & the & first & finally & last & one \\ 
+				\hline
+				1 & 2 & 1 & 1 & 1 & 0 & 0 & 0 \\
+				1 & 0 & 1 & 1 & 0 & 1 & 1 & 1 \\
+			\end{tabular}
+		\end{center} 
+		\item New samples $z$ by randomly setting the entry of individual words to $0$\\ i.e. equal to removing all occurrences of this word in the text. 
+		\item An exponential kernel with cosine distance as a proximity measure. 
+		\item Cosine distance is advantageous  because it neglects words not occurring in both texts and measures the distance irrespective of the text size. 
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame}[c]{LIME for Text Data \lit{Shen 2019}{https://medium.com/just-another-data-scientist/explain-sentiment-prediction-with-lime-f90ae83da2da}}
+
+    \begin{itemize}
+		
+		\item Below LIME explains a random forest classifier that labels movie reviews from IMDB. 
+		\item The surrogate model is a sparse linear model. 
+	\end{itemize}
+	
+	\begin{figure}
+		\begin{center}
+			%\captionsetup{font = scriptsize, labelfont = {bf, scriptsize}}
+			\includegraphics[width=0.9\textwidth]{figure/lime_movier}
+		\end{center}
+	\end{figure}
+	
+\end{frame}
+	
+\begin{frame}[c]{LIME for image data \lit{Achanta et al. 2012}{https://ieeexplore.ieee.org/document/6205760}}
+	\begin{columns}
+		\begin{column}{0.67\textwidth}
+			\begin{itemize}
+				\item Each instance is represented as a binary vector indicating the presence or absence of superpixels. 
+				\item Superpixels are interconnected pixels with similar colors. They are used because a single pixel would probably not change a prediction by much.
+				\item Challenge: The size of superpixels needs to be determined before the segmentation takes place.
+				\item New samples $z$ are created by randomly switching some of the super pixels ``off", i.e., by coloring some superpixels uniformly.  
+			\end{itemize}		
+		\end{column}
+		\begin{column}{0.26\textwidth}  
+		
+			\begin{center}
+				\includegraphics[width=.7\textwidth]{figure/superpixel_woman}\\
+				 Example for superpixels of different sizes.
+			\end{center}
+			
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[c]{LIME for image data \lit{Ribeiro et al. 2016}{https://arxiv.org/abs/1602.04938}}
+	\begin{itemize}
+		\item Below, LIME explains the prediction of Google's pre-trained Inception neural network classifier of an arbitrary image. 
+		\item Samples $z$ are created by graying out all superpixels besides 10. 
+		\item As a surrogate model, locally weighted sparse linear models are trained to predict the probability of each class. 
+		\item Weights are determined by an exponential kernel with euclidean distance.
+		\item Below the corresponding explanations for the top 3 predicted classes are shown.   
+	\end{itemize}
+% https://lime-ml.readthedocs.io/en/latest/lime.html#module-lime.lime_image
+	\begin{center}
+		\includegraphics[width=0.7\textwidth]{figure/lime-images}
+	\end{center}
+\end{frame}
+
+
+\begin{frame}[c]{Example CE: Credit Data}
+	\begin{itemize}
+		\item Model: SVM with RBF kernel
+		\item $x$ is the first data point of the dataset with $P(y = good)  = 0.34$ of being a ``good" customer.  
+		\item Our desired goal is to increase the probability to $[0.5, 1]$.
+		\item Mulit-objective CE found 82 counterfactuals.
+		\item All counterfactuals proposed changes to the credit duration and many to the credit amount.  
+	\end{itemize}
+	
+\end{frame}
+\begin{frame}{Example CE: Credit Data}
+    \vspace{-2em}
+	\begin{columns}
+				\begin{column}{0.5\textwidth}  
+			\begin{center}
+				\includegraphics[width=0.6\textwidth]{figure/counterfactuals_credit_parallel}
+			\end{center}
+			
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{center}
+				\includegraphics[width=.8\textwidth]{figure/counterfactuals_credit_heat}
+			\end{center}
+				
+		\end{column}
+	\end{columns}
+	
+	\begin{itemize}
+	    \item Parallel plot (left): all counterfactuals had values equal to or smaller than the values of $x$.
+		\item Surface plot (right): why these feature changes are recommended. 
+		\item Counterfactuals in the lower left corner seem to be in a less favorable region far from $x$, but they are in high density areas close to training samples (indicated by histograms).
+	\end{itemize}
+		
+\end{frame}
+
+
+\end{document}

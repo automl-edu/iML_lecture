@@ -1,0 +1,85 @@
+\documentclass[aspectratio=169]{../latex_main/tntbeamer}  % you can pass all options of the beamer class, e.g., 'handout' or 'aspectratio=43'
+\input{../latex_main/preamble}
+
+\title[Introduction]{iML: Interpretable Models}
+\subtitle{Motivation}
+
+%\institute{}
+
+
+\begin{document}
+	
+	\maketitle
+
+	%-----------------------------------------------------------------------------------------------------------------------------
+
+\begin{frame}[c]{Motivation}
+
+    \begin{itemize}
+        \item Achieving interpretability by using interpretable models is the most straightforward approach
+        \pause
+        \item Classes of models deemed to be interpretable:
+        \begin{itemize}
+            \item Linear regression
+            \item Logistic regression ($\leadsto$ Classification)
+            \item Decision trees
+            \item k-NN
+            \item Naive Bayes
+            \item ...
+        \end{itemize}
+    \end{itemize}	
+	
+\end{frame}
+	
+\begin{frame}[c]{Advantages}
+
+    \begin{itemize}
+        \item No further technique for interpretability required
+        \begin{itemize}
+            \item reduces risk of bringing in another source of failure
+        \end{itemize}
+        \pause
+        \medskip
+        \item Since the models are often rather simple, training time is also fairly small
+        \pause
+        \medskip
+        \item Some of them fulfill the monotonicity constraint
+        \begin{itemize}
+            \item[$\leadsto$] Larger feature values always lead to higher (or smaller) outcomes (e.g., regression values)
+        \end{itemize}
+        \pause
+        \medskip
+        \item Some models can also explain interaction effects
+    \end{itemize}	
+	
+\end{frame}
+
+\begin{frame}[c]{Disadvantages}
+
+    \begin{itemize}
+        \item Too simple models
+        \begin{itemize}
+            \item[$\leadsto$] poor accuracy $\leadsto$ unusable in practice in the first place
+        \end{itemize}
+        \pause
+        \medskip
+        \item If too complex interactions are modelled, interpretability could suffer
+    \end{itemize}	
+	
+\end{frame}
+
+\begin{frame}[c]{Further Comments}
+
+    \begin{itemize}
+        \item Some argue that one should always use interpretable models in the first place \lit{Rudin 2019}{https://www.nature.com/articles/s42256-019-0048-x}
+        \begin{itemize}
+            \item \ldots and not try to explain uninterpretable models posthoc
+            \item Can sometimes work out by spending enough time and energy\\ on feature engineering and data cleaning
+        \end{itemize}
+        \item[$\leadsto$] Drawback: Hard to achieve for data for which end-to-end learning is crucial\\ (e.g., images and text)
+    \end{itemize}	
+	
+\end{frame}
+
+	
+\end{document}

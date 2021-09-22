@@ -1,0 +1,308 @@
+\documentclass[aspectratio=169]{../latex_main/tntbeamer}  % you can pass all options of the beamer class, e.g., 'handout' or 'aspectratio=43'
+\input{../latex_main/preamble}
+
+\title[Introduction]{iML: Feature Effects}
+\subtitle{ICE and PDP}
+
+%\institute{}
+
+
+\begin{document}
+	
+	\maketitle
+
+	%-----------------------------------------------------------------------------------------------------------------------------
+	
+\begin{frame}{Feature Effects}
+
+\vspace{-1em}
+\textbf{Feature Effects} visualize or quantify the (average) relationship between the features and the model predictions.
+
+\begin{itemize}
+    \item Methods: PD Plots, ICE curves, ALE plots
+    \item Similar to regression coefficients (LMs) or Splines (GAMs).
+\end{itemize}
+
+\centerline{\includegraphics[width=0.7\textwidth]{figure/feature-effects.pdf}}
+
+\begin{center}
+    Individual (curves) $\xrightarrow[]{\text{aggregate}}$ Global (curve)  $\xrightarrow[]{\text{aggregate}}$ Global (number)
+\end{center}
+
+\end{frame}
+
+\begin{frame}{Individual Conditional Expectation (ICE) \lit{Goldstein et al. 2014}{https://arxiv.org/pdf/1309.6392.pdf}}
+
+\begin{itemize}
+    \item each observation $x^{(i)}$ can be partitioned into $x^{(i)}_S$ and $x^{(i)}_C$
+    \begin{itemize}
+        \item $x^{(i)}_S$ containing the features of interest
+        \item $x^{(i)}_C$ the remaining features
+    \end{itemize}
+\end{itemize}  
+
+\pause
+
+ICE curves visualize how the model prediction of individual observations $x^{(i)}$
+change by varying the feature values in $x_S$ while keeping all other features in $x^{(i)}_C$ fixed:
+$$\hat{f}_{S}^{(i)}(x_S) = \hat{f}(x_S, x^{(i)}_C)$$
+
+\pause
+In practice, $x_S$ consists of one or two features.
+
+\bigskip
+\pause
+
+\alert{Note}: $\hat{f}$ indicates we do this on our predictive model by simply querying it at different $x_S$.
+
+\end{frame}
+
+\begin{frame}[c]{ICE Curves}
+
+\vspace{-0.2cm}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{figure/ICE01.png}
+\end{center}
+\vspace{-0.3cm}
+
+
+\begin{itemize}
+    \item Each line displays the change in prediction for a single observation due to varying the feature temperature.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[c]{Creation of ICE \lit{Scholbeck et al. 2019}{https://arxiv.org/abs/1904.03959}}
+
+Steps to create an ICE curve of an observation regarding a single feature $x_S$ according to the \textbf{SIPA} framework:
+
+\begin{enumerate}
+\item \textbf{Sampling:} Choose grid points along $x_S$.
+\item For each grid point:
+\begin{itemize}
+\item \textbf{Intervention:} Replace the original feature value $x_S$ with the current grid value.
+\item \textbf{Prediction:} Get the model prediction with replaced feature value $x_S$.
+\end{itemize}
+%\item \textbf{Aggregation:} none.
+\item \textbf{Visualization:} Draw a curve per observation with the grid points on the x-axis and the prediction on the y-axis.
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Individual Conditional Expectation (ICE)}
+\includegraphics[page=1, width=0.35\textwidth]{figure/ice_pd_plot_demo}
+
+\textbf{Sampling:} Choose grid points along $x_1  $ that will be used to intervene the data (here: all unique values $1, 2$ and $3$).
+
+\end{frame}
+%--------------------------------------------------------
+\begin{frame}{Individual Conditional Expectation (ICE)}
+
+\includegraphics[page=2, width=0.35\textwidth]{figure/ice_pd_plot_demo}
+
+\textbf{Intervention:} Replace all observed values in $x_1$ for each observation with the previously sampled grid points.
+
+\end{frame}
+%--------------------------------------------------------
+\begin{frame}{Individual Conditional Expectation (ICE)}
+
+\includegraphics[page=3, width=0.35\textwidth]{figure/ice_pd_plot_demo}
+
+\textbf{Prediction:} Make predictions and plot $\hat{f}_{1}^{(i)}(x_1)$ vs. $x_1$, where $$\hat{f}_{1}^{(i)}(x_1) = \hat{f}(x_1, x^{(i)}_{2, 3}).$$
+
+\end{frame}
+%--------------------------------------------------------
+\begin{frame}{Individual Conditional Expectation (ICE)}
+
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\vspace*{-\topsep}
+\vspace*{0.5\lineskip}
+\includegraphics[page=5, trim=-3.69cm 0cm 3.69cm 0cm, width=0.7\textwidth]{figure/ice_pd_plot_demo}
+\end{column}
+\begin{column}{0.45\textwidth}
+
+\begin{center}
+\includegraphics[page=1, width=0.9\textwidth]{figure/ICE}
+\end{center}
+
+\end{column}
+\end{columns}
+\vspace*{\topsep}
+
+\textbf{Visualization:} ICE curve for observation $i=1$ connects all predictions at the corresponding grid points associated to the $i$-th observation.
+
+\end{frame}
+%--------------------------------------------------------
+\begin{frame}{Individual Conditional Expectation (ICE)}
+
+
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\vspace*{-\topsep}
+\vspace*{0.5\lineskip}
+\includegraphics[page=6, trim=-3.69cm 0cm 3.69cm 0cm, width=0.7\textwidth]{figure/ice_pd_plot_demo}
+\end{column}
+\begin{column}{0.45\textwidth}
+
+\begin{center}
+\includegraphics[page=2, width=0.9\textwidth]{figure/ICE}
+\end{center}
+
+\end{column}
+\end{columns}
+\vspace*{\topsep}
+
+\textbf{Visualization:} ICE curve for observation $i=2$ connects all predictions at the corresponding grid points associated to the $i$-th observation.
+
+\end{frame}
+%--------------------------------------------------------
+\begin{frame}{Individual Conditional Expectation (ICE)}
+
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\vspace*{-\topsep}
+\vspace*{0.5\lineskip}
+\includegraphics[page=7, trim=-3.69cm 0cm 3.69cm 0cm, width=0.7\textwidth]{figure/ice_pd_plot_demo}
+\end{column}
+\begin{column}{0.45\textwidth}
+
+\begin{center}
+\includegraphics[page=3, width=0.9\textwidth]{figure/ICE}
+\end{center}
+
+\end{column}
+\end{columns}
+\vspace*{\topsep}
+
+\textbf{Visualization:} ICE curve for observation $i=3$ connects all predictions at the corresponding grid points associated to the $i$-th observation.
+\end{frame}
+
+\begin{frame}{Partial Dependence \lit{Friedman 2001}{https://statweb.stanford.edu/~jhf/ftp/trebst.pdf} \lit{Scholbeck et al. 2019}{https://arxiv.org/abs/1904.03959}}
+
+The partial dependence (PD) plot is the expectation of the ICE curves w.r.t. the marginal distribution of complementary features $x_C$:
+$$\mathbb{E}_{x_C} \left( \hat{f}(x_S, x_C) \right) = \int_{-\infty}^{\infty} \hat{f}(x_S, x_C) \, dP(x_C)$$
+
+For a single $x_S$, it is estimated by the point-wise average of the ICE curves:
+$$\text{PD}_S := \hat{f}_{S}(x_S) = \frac{1}{n} \sum_{i=1}^n \hat{f}(x_S, x_C^{(i)})$$
+
+%Within the SIPA framework, the partial dependence builds the \textbf{Aggregation} step.
+
+\end{frame}
+
+
+\begin{frame}{Partial Dependence: Example}
+\vspace{-3em}
+\begin{columns}[T]
+
+\begin{column}{0.3\textwidth}
+
+\begin{center}
+\includegraphics[page=8, width=1\textwidth]{figure/ice_pd_plot_demo}    
+\end{center}
+
+\end{column}
+
+\begin{column}{0.7\textwidth}
+
+\begin{center}
+\includegraphics[page=1, width=0.6\textwidth]{figure/PD}
+\end{center}
+
+\end{column}
+
+\end{columns}
+
+\textbf{Aggregation:} Estimate partial dependence by the point-wise average of the ICE curves at \fcolorbox{red}{white}{$x_S = x_1 = 1$}:
+$$PD_1 = \hat{f}_{1}(x_1) = \frac{1}{n} \sum_{i=1}^n \hat{f}(x_1, x_{2, 3}^{(i)})$$
+
+\end{frame}
+
+
+\begin{frame}{Partial Dependence: Example}
+\vspace{-3em}
+\begin{columns}[T]
+
+\begin{column}{0.3\textwidth}
+
+\begin{center}
+\includegraphics[page=9, width=1\textwidth]{figure/ice_pd_plot_demo}
+\end{center}
+\end{column}
+
+
+\begin{column}{0.7\textwidth}
+
+\begin{center}
+\includegraphics[page=2, width=0.6\textwidth]{figure/PD}
+\end{center}
+
+\end{column}
+
+\end{columns}
+
+\textbf{Aggregation:} Estimate partial dependence by the point-wise average of the ICE curves at \fcolorbox{red}{white}{$x_S = x_1 = 2$}:
+$$PD_1 = \hat{f}_{1}(x_1) = \frac{1}{n} \sum_{i=1}^n \hat{f}(x_1, x_{2, 3}^{(i)})$$
+
+\end{frame}
+
+
+\begin{frame}{Partial Dependence: Example}
+\vspace{-3em}
+\begin{columns}[T]
+
+\begin{column}{0.3\textwidth}
+
+\begin{center}
+\includegraphics[page=10, width=\textwidth]{figure/ice_pd_plot_demo}
+\end{center}
+
+\end{column}
+\begin{column}{0.7\textwidth}
+
+\begin{center}
+\includegraphics[page=3, width=0.6\textwidth]{figure/PD}
+\end{center}
+\end{column}
+
+\end{columns}
+
+\textbf{Aggregation:} Estimate partial dependence by the point-wise average of the ICE curves at \fcolorbox{red}{white}{$x_S = x_1 = 3$}:
+$$PD_1 = \hat{f}_{1}(x_1) = \frac{1}{n} \sum_{i=1}^n \hat{f}(x_1, x_{2, 3}^{(i)})$$
+
+\end{frame}
+
+\begin{frame}{Partial Dependence: Example}
+\vspace{-3em}
+\begin{columns}[T]
+
+\begin{column}{0.3\textwidth}
+
+\begin{center}
+\includegraphics[page=10, width=\textwidth]{figure/ice_pd_plot_demo}
+\end{center}
+
+\end{column}
+\begin{column}{0.7\textwidth}
+
+\begin{center}
+\includegraphics[page=3, width=0.6\textwidth]{figure/PD}
+\end{center}
+\end{column}
+
+\end{columns}
+
+\textbf{Aggregation:} Estimate partial dependence by the point-wise average of the ICE curves at \fcolorbox{red}{white}{$x_S = x_1 = 3$}:
+$$PD_1 = \hat{f}_{1}(x_1) = \frac{1}{n} \sum_{i=1}^n \hat{f}(x_1, x_{2, 3}^{(i)})$$
+
+\end{frame}
+
+\begin{frame}[c]{Further Material}
+
+\begin{itemize}
+    \item Blog "Efficient Partial Dependence Plots with decision trees" by \lit{Nicolas Hug 2019}{http://nicolas-hug.com/blog/pdps}
+\end{itemize}
+
+\end{frame}
+
+\end{document}

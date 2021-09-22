@@ -1,0 +1,204 @@
+\documentclass[aspectratio=169]{../latex_main/tntbeamer}  % you can pass all options of the beamer class, e.g., 'handout' or 'aspectratio=43'
+\input{../latex_main/preamble}
+
+\title[Introduction]{iML: Introduction}
+\subtitle{Concepts}
+%\institute{}
+
+\begin{document}
+	
+	\maketitle
+
+\begin{frame}[c]{Dimensions of Interpretability}
+	\begin{itemize}
+		\itemsep2em
+		\item 
+		Intrinsic vs Model-agnostic Interpretability.
+		
+		\item 
+		Interpretability based on the \textbf{type or style} of explanations.
+		
+		\item 
+		Local vs Global interpretability.
+		
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[c]{Intrinsic vs Model-Agnostic Interpretability}
+	\begin{center}
+		\includegraphics[width=0.7\textwidth]{figure/overview}
+	\end{center}
+\end{frame}
+
+
+\begin{frame}[c]{Intrinsic and Model-Agnostic Interpretation}
+	\begin{itemize}
+		\item Intrinsically interpretable models:
+		\begin{itemize}
+			\item Examples are linear models and decision trees.
+			\item interpretable because of their simple structures,\\ 
+			e.g. weighted combination of feature values or tree structure. 
+			\item difficult to interpret with many features or complex interaction terms.
+		\end{itemize}
+	\bigskip
+	\pause
+		\item Model-agnostic interpretation methods:
+		\begin{itemize}
+			\item applied after training (post-hoc).
+			\item also work for more complex black box models.
+			\item can also be applied to intrinsically interpretable models,\\ 
+			e.g. feature importance for decision trees. 
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[c]{Model-Agnostic Interpretability}
+	\begin{itemize}
+		\itemsep2em
+		\item Model-agnostic interpretability methods work for \textbf{any} kind of machine learning model.
+		\item Explanation type is not tied to the underlying model type.
+		\item Often, only access to data and fitted predictor is required.\\
+		 No further knowledge about the model itself is necessary.
+		\item We usually distinguish between \textbf{feature effect} and \textbf{feature importance} methods.
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[c]{Types of Explanations}
+	\begin{center}
+		\includegraphics[width=0.7\textwidth]{01_introduction/figure/1-attributions.png}
+    \end{center}
+\end{frame}
+
+
+
+\begin{frame}[c]{Types of Explanations}
+	\vspace{-2em}
+	The output of an interpretability procedure is an \textbf{explanation.} We can differentiate the types of approaches based on the kinds of output
+
+	
+	\begin{itemize}
+
+    \itemsep1em
+	\item 
+		\textbf{Feature attribution:} Feature attribution identifies the subset of features instances that are most responsible for a decision.
+	
+	\itemsep1em
+	
+	\pause
+	\item 
+		\textbf{Data attribution:} Data attribution identifies  training instances that are most responsible for a decision.
+		
+		\itemsep1em
+		
+	\pause
+	\item 
+	   \textbf{Counterfactual Explanation:} 
+	   Counterfactual explanations are  obtained by identifying the smallest change made to an input to change a prediction made by a model.
+	  
+	\end{itemize}
+	
+\end{frame}
+
+\begin{frame}[c]{Explanation using training instances~\lit{Koh et al. 2017}{https://arxiv.org/pdf/1703.04730.pdf}}
+	\vspace{-1em}
+	\textbf{Data attribution:} Which training instances results in the decision for the instance $x$ of the model ?
+	\begin{center}
+		\includegraphics[page=1, width=0.7\textwidth]{01_introduction/figure/fish-attribution.pdf}
+	\end{center}
+	
+\end{frame}
+
+\begin{frame}[c]{Explanation using training instances~\lit{Koh et al. 2017}{https://arxiv.org/pdf/1703.04730.pdf}}
+	\vspace{-1em}
+	\textbf{Data attribution:} Which training instances results in the decision for the instance $x$ of the model ?
+	\begin{center}
+		\includegraphics[page=1, width=0.7\textwidth]{01_introduction/figure/prototypes-fish.pdf}
+	\end{center}
+	\begin{itemize}
+		\item Methods: 
+		Influence functions, prototype generation.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[c]{Explanation using Counterfactuals}
+	\vspace{-1em}
+    A counterfactual is small ``imperceptible'' change in $x$. What if a small difference $ |x - x'| \leq \epsilon$ to $x$ causes a large change in the model output ?
+	\begin{center}
+		\includegraphics[page=1, width=0.7\textwidth]{01_introduction/figure/counterfactual.pdf}
+	\end{center}
+	
+\end{frame}
+
+\begin{frame}[c]{Local vs Global Explanations}
+	\begin{center}
+		\includegraphics[width=0.7\textwidth]{01_introduction/figure/1-local-global.png}
+	\end{center}
+\end{frame}
+
+\begin{frame}[c]{Global and Local Interpretability}
+	Global interpretability methods explain the expected model behavior for the entire input space by considering all available observations (or representative subsets). For example:
+	\begin{itemize}
+		\item Permutation Feature Importance
+		\item Partial Dependence Plot
+		\item Functional Anova
+		\item ...
+	\end{itemize}
+	\pause
+	Local interpretability methods explain single predictions or a group of similar observations.\\ For example:
+	\begin{itemize}
+		\item Individual Conditional Expectation (ICE) Plots
+		\item Local Interpretable Model-Agnostic Explanations (LIME)
+		\item Shapley Values
+		\item ...
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[c]{Feature Effects vs. Feature Importance}
+	\vspace{-1em}
+	\textbf{Feature Effects} visualize or quantify the (average) relationship or contribution of a feature to the model prediction.
+	\begin{center}
+		\includegraphics[page=1, width=0.7\textwidth]{figure/feature-effects}
+	\end{center}
+	\begin{itemize}
+		\item Methods: Partial Dependence Plots, Individual Conditional Expectation,\\ Accumulated Local Effects (ALE)
+		\item Pendant in linear models: Regression coefficient $\hat{w}_j$
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[c]{Feature Effects vs. Feature Importance (cont'd)}
+	
+	\textbf{Feature importance} methods rank features by how much they contribute to the predictive performance or prediction variance of the model.
+	\begin{columns}
+		\begin{column}{0.6\textwidth}
+			\begin{itemize}
+				\itemsep1em
+				\item Methods: Permutation Feature Importance,\\ Functional Anova
+				\item Analog in linear models: Absolute t-statistic %$\left|\frac{\hat{w}_j}{SE(\hat{w}_j)}\right|$
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.4\textwidth}
+			\begin{center}
+				\includegraphics[page=1, width=0.9\textwidth]{figure/feature-importance}
+			\end{center}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+
+
+\begin{frame}[c]{Fixed Model vs. Refits}
+	\begin{itemize}
+		\itemsep1em
+		\item Most methods, we will discuss, analyze a fixed, trained model\\ 
+		(e.g., permutation feature importance).
+		\item Some methods require refitting the model (e.g., PIMP).
+		\item Trained model $\Rightarrow$ Model is the object of analysis.
+		\item Refitting $\Rightarrow$ Learning process is the object of analysis.
+		\item The advantage of refitting is\\ that it includes information about the variability in the learning process.
+	\end{itemize}
+\end{frame}
+
+	
+\end{document}

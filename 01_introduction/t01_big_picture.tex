@@ -1,0 +1,84 @@
+\documentclass[aspectratio=169]{../latex_main/tntbeamer}  % you can pass all options of the beamer class, e.g., 'handout' or 'aspectratio=43'
+\input{../latex_main/preamble}
+
+\title[Introduction]{iML: Introduction}
+\subtitle{The Big Picture}
+
+%\institute{}
+
+
+\begin{document}
+	
+	\maketitle
+
+	%-----------------------------------------------------------------------------------------------------------------------------
+
+	\begin{frame}[c]{Why Interpretability?}
+		
+		\begin{itemize}
+			\item Machine Learning (ML) has a huge potential to aid the decision-making process in various scientific and business applications due to its predictive power.
+			\pause
+			\smallskip
+			\item ML models usually are intransparent black boxes, e.g., XGBoost, RBF SVM or DNNs.
+			\begin{itemize}
+				\item[$\leadsto$] too complex to be understood by humans
+			\end{itemize}
+			\pause
+			\smallskip
+			\item The lack of explanation
+			\begin{enumerate}
+				\item hurts trust
+				\item creates barriers
+			\end{enumerate}  
+			\pause
+			\smallskip
+		    \item[$\leadsto$] Harder to adapt for critical areas with decisions affecting human life (e.g., medicine or credits).
+			\pause
+			%\smallskip
+			\item[$\leadsto$] Many disciplines with required trust rely on traditional models,\\ e.g., linear models, with less predictive performance.
+		\end{itemize}
+		
+	\end{frame}
+	
+	%-----------------------------------------------------------------------------------------------------------------------------	
+	
+	\begin{frame}[c]{Brief History of Interpretability}
+		\begin{itemize}
+			\item 18th and 19th century: linear regression models (Gauss, Legendre, Quetelet)
+			\item 1940s: sensitivity analysis (SA), still used today
+			\item Middle of 20th century: Rule-based ML, incl. decision rules and decision trees
+			\item 2001: built-in feature importance measure of random forests
+			\item >2010: explainable AI (XAI) for deep learning
+			\item >2015: IML as an independent field of research 
+			\item 2018: GDPR requires explainability for some applications 
+		\end{itemize}
+	\end{frame}
+	
+	%-----------------------------------------------------------------------------------------------------------------------------
+	
+	\begin{frame}[c]{When do We Need Interpretability? \lit{Doshi-Velez and Kim. 2017}{https://arxiv.org/abs/1702.08608}
+		\lit{Adadi and Adadi. 2018}{https://ieeexplore.ieee.org/document/8466590}}
+		\begin{columns}
+			\begin{column}{0.6\textwidth}
+				\begin{itemize}
+					\item To \textbf{Justify} (and increase trust in models): investigate if and why biased, unexpected or discriminatory predictions were made.
+					\pause
+					\item To \textbf{Control}: debug models, identify and correct vulnerabilities and flaws.
+					\pause
+					\item To \textbf{Improve}: understanding why a prediction was made makes it easier to improve the model.
+					\pause
+					\item To \textbf{Discover}: learn new facts, gather information and gain insights.
+				\end{itemize}
+			\end{column}
+			\begin{column}{0.6\textwidth}  
+				\begin{center}
+					\begin{figure}
+						\includegraphics[width=0.58\textwidth]{figure/explain-to}
+					\end{figure}
+				\end{center}
+			\end{column}
+		\end{columns}
+
+	\end{frame}
+	
+\end{document}

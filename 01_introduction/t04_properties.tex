@@ -1,0 +1,129 @@
+\documentclass[aspectratio=169]{../latex_main/tntbeamer}  % you can pass all options of the beamer class, e.g., 'handout' or 'aspectratio=43'
+\input{../latex_main/preamble}
+
+\title[Introduction]{iML: Introduction}
+\subtitle{Properties}
+%\institute{}
+
+\begin{document}
+	
+	\maketitle
+
+
+\begin{frame}[c]{How to Measure Interpretability?}
+	
+	\begin{itemize}
+	    \item No real metric, but only proxies such as complexity of the model or the explanation
+	    \pause
+	    \item \lit{Doshi-Velez and Kim 2017}{https://arxiv.org/abs/1702.08608} proposed three main levels of interpretability
+	    \begin{description}
+	        \item[Real Task] Apply in production and study whether users are satisfied
+	        \begin{itemize}
+	            \item[$\leadsto$] Crazy expensive, but actually what you want
+	        \end{itemize}
+	        \pause
+	        \item[Simple Task] Apply it to a simplified application and evaluate it by laypersons
+	        \begin{itemize}
+	            \item[$\leadsto$] fairly expensive, but only approximation of the real world
+	        \end{itemize}
+	        \pause
+	        \item[Proxy Task] instead of real tasks; e.g., tree depth for a measure of complexity
+	        \begin{itemize}
+	            \item[$\leadsto$] cheap, but often only crude approximation of real interpretability
+	        \end{itemize}
+	        
+	    \end{description}
+	\end{itemize}
+	
+\end{frame}
+
+
+
+\begin{frame}[c]{Properties of Explanation Methods \lit{Robnik-Sikonja and Bohanec 2018}{https://link.springer.com/chapter/10.1007/978-3-319-90403-0_9}}
+	
+	\begin{description}
+        \item[Expressive Power] is the power of which kind of models (e.g., decision boundaries) can be expressed 
+        \begin{itemize}
+            \item More expressive power is nice for accuracy, but can hurt interpretability
+        \end{itemize}
+        \medskip
+        \pause
+        \item[Translucency] measures how much information of the model is used
+        \begin{itemize}
+            \item black-box approaches only observing input and output of models\\ are not translucent
+            \item using the model weights (e.g., of linear regression) would be high translucent
+        \end{itemize}
+        \medskip
+        \pause
+        \item[Portability] describes to how many model classes method can be applied to
+        \begin{itemize}
+            \item not translucent model are often very portable
+        \end{itemize}
+        \medskip
+        \pause
+        \item[Algorithmic Complexity] describes how much compute resources are needed to\\ compute the explanation
+        \begin{itemize}
+            \item should be scale well with number of observations and features if possible
+        \end{itemize}
+        
+	\end{description}
+\end{frame}
+
+\begin{frame}[c]{Properties of Individual Explanations~\lit{Robnik-Sikonja and Bohanec 2018}{https://link.springer.com/chapter/10.1007/978-3-319-90403-0_9}}
+	
+	\begin{description}
+        \item[Accuracy] How accurate is the explanation on unseen data? Similar to accuracy of models.
+        \begin{itemize}
+            \item If this is too small, there might be no point in using it\\ since it does not reflect the ``real world''.
+        \end{itemize}
+        \medskip
+        \pause
+        \item[Fidelity] How accurately does the explanation reflect the predictions of the model? 
+        \begin{itemize}
+            \item If this is too small, there is no point in using it\\ since it does not reflect the model to be explained.
+        \end{itemize}
+        \medskip
+        \pause
+        \item[Consistency] measures how much explanation of two models trained on the same task differ. 
+        \begin{itemize}
+            \item Desirable if both models rely on the same features and relationships
+        \end{itemize}
+        \medskip
+        \pause
+        \item[Comprehensibility] Can the human comprehend the model?
+        \begin{itemize}
+            \item hard to measure (see before)
+        \end{itemize}
+	\end{description}
+\end{frame}
+
+\begin{frame}[c]{Properties of Individual Explanations (cont'd)~\lit{Robnik-Sikonja and Bohanec 2018}{https://link.springer.com/chapter/10.1007/978-3-319-90403-0_9}}
+	
+	\begin{description}
+        \item[Certainty] Does the explanation reflect the certainty of the model?
+        \begin{itemize}
+            \item Important for probabilistic models with uncertainty estimates
+            \item Explanation should not be more uncertaint or certain than the original model
+        \end{itemize}
+        \medskip
+        \pause
+        \item[Degree of Importance] Can the explanation explain the importance of features and interaction effects?
+        \begin{itemize}
+            \item Often interesting for users to know which feature was most important
+        \end{itemize}
+        \medskip
+        \pause
+        \item[Novelty] Can the explanation also reflect that a new observation is far from the original data distribution used for training?
+        \begin{itemize}
+            \item Should ideally also lead to high uncertainty in the explanation (and model)
+        \end{itemize}
+        \pause
+        \item[Representativeness] Does the explanation cover only a single (or few) observations or all of them?
+        \begin{itemize}
+            \item Whether more or less is better depends on the application
+        \end{itemize}
+        
+	\end{description}
+\end{frame}
+	
+\end{document}
