@@ -1,7 +1,7 @@
 \documentclass[aspectratio=169]{../latex_main/tntbeamer}  % you can pass all options of the beamer class, e.g., 'handout' or 'aspectratio=43'
 \input{../latex_main/preamble}
 
-\title[Introduction]{iML: Introduction}
+\title[Introduction]{Interpretable Machine Learning}
 \subtitle{Logistics for the Lecture}
 
 %\institute{}
@@ -27,6 +27,7 @@ Large parts of the material (i.e. slides and figures) in the first to fifth week
 You will be able to \ldots
 \begin{enumerate}
   \item \alert{identify} cases where interpreting machine learning models is important
+  \item \alert{explain} different iML techniques
   \item \alert{choose} an appropriate technique for an iML task at hand
   \item \alert{evaluate} the pros and cons of different iML approaches
   \item \alert{apply} iML approaches to a task at hand
@@ -39,7 +40,7 @@ You will be able to \ldots
 
 \begin{itemize}
 	\item Introduction \& Background 
-	\item GAMs and Rule-based approaches 
+	\item Interpretable Models 
 	\item Feature Effects
 	\item Local Explanations
 	\item Shapley Values for Explainability
@@ -100,9 +101,9 @@ Ren\'e Sass\\
 
 \column{0.2\textwidth}
 \centering
-\includegraphics[height=10em]{images/TODO.jpg}
+\includegraphics[height=10em]{./figures/max_portrait.jpg}
 
-??? ???\\
+Max Idahl\\
 
 \end{columns}
 
@@ -114,6 +115,7 @@ Ren\'e Sass\\
 \begin{itemize}
   \item Advantages of videos:
   \begin{itemize}
+      \item Neither YOUTUBE nor NETFLIX VIDEOS!
       \item Watch it whenever (wherever) you want
       \item Watch it at your own speed
       \begin{itemize}
@@ -154,7 +156,7 @@ Ren\'e Sass\\
   \item Team work highly recommended, team size at most 3! 
   \item Build upon GitHub classroom $\leadsto$ enables auto-grading
   \begin{itemize}
-      \item There will be an invitation link each week -- distributed via Mattermost
+      \item There will be an invitation link each week -- distributed via StudIP
   \end{itemize}
 %   \item Submit solutions via git
   \pause
@@ -166,7 +168,7 @@ Ren\'e Sass\\
   \pause
   \item Exercises are not mandatory\\ \alert{BUT: quite unlikely that you will pass the course without doing them}
   \pause
-  \item Up to \alert{$25$ bonus points} for final grade.
+  \item Up to \alert{$9$ bonus points} for final grade, i.e., 3 grading boosts.
 \end{itemize}
 
 \end{frame}
@@ -176,7 +178,7 @@ Ren\'e Sass\\
 
 \begin{itemize}
   \item Every week at Tuesday: 09:30am (s.t) - 11:30am\\ 
-  \item Room: MRR at L3S (if COVID allows it)
+  \item Room: Multimedia Room at L3S (15th floor, Appelstr. 9a)
   \pause
   \item Warning: Does not replace watching the recorded lecture videos!
   \pause
@@ -184,7 +186,7 @@ Ren\'e Sass\\
   \item Components:
   \begin{enumerate}
        \item You can ask anything related to the recent lecture videos or exercises
-      \item Break-out rooms to discuss questions in small groups
+      \item Break-out to discuss questions in small groups (if number of attendees to allow this)
       \pause
       \item Q\&A regarding the exercise
       \pause
@@ -192,7 +194,7 @@ Ren\'e Sass\\
   \end{enumerate}
   \pause
   \medskip
-  \item No recordings of the live sessions (regardless whether virtual or on-site)
+  \item No recordings of the live sessions
 \end{itemize}
 
 \end{frame}
@@ -209,10 +211,10 @@ Ren\'e Sass\\
 %       \item First use the channel "2021/22 iML Lecture"
 %       \item Contact us individually only if these are personal questions\\ (such as ``I'm sick and have to cancel my exam'')
 %   \end{itemize}
-  \item Use the forum in StudIP for all kind of questions
+  \item \alert{Use the forum in StudIP for all kind of questions}
   \item Don't send us emails
   \begin{itemize}
-      \item[$\leadsto$] Only in case of emergencies (and even in such cases it is better to use Mattermost) 
+      \item[$\leadsto$] Only in case of emergencies
   \end{itemize}
 \end{itemize}
 
@@ -236,9 +238,9 @@ Ren\'e Sass\\
     \item to catch up (if nec.): \url{https://course.fast.ai/}
   \end{itemize}
   \pause
-  \item Experience in \alert{Python and git}\\ (strongly recommended)
+  \item Experience in \alert{Python and git}\\ (mandatory)
   \begin{itemize}
-    \item nearly all exercises will require 
+    \item all exercises will require 
     that you implement something in~Python and\\ submit the solution to a git repo
   \end{itemize}
 \end{itemize}
@@ -246,7 +248,7 @@ Ren\'e Sass\\
 \end{frame}
 %-----------------------------------------------------------------------
 %----------------------------------------------------------------------
-\begin{frame}[c]{Final Oral/Project Exam -- Tentative Plan!}
+\begin{frame}[c]{Final Project Exam -- Tentative Plan!}
 
 \begin{itemize}
   \item Implement a larger project (worth $1-2$ weeks full time)
@@ -264,12 +266,7 @@ Ren\'e Sass\\
 		        e.g., how does your approach relates to XYZ?
 		    \end{itemize}
 	\end{itemize}	
-  \item Tentative date: March DAY1th - DAYENDth
-  \pause
-  \item If the COVID-19 situation has not improved by then, we will offer virtual oral exams 
-  \begin{itemize}
-      \item[$\leadsto$] webcam and stable internet connection required!
-  \end{itemize}
+  \item Tentative date: February 21th - 25th (mornings)
 \end{itemize}
 
 \end{frame}
@@ -283,7 +280,7 @@ Ren\'e Sass\\
   \item iML books: 
   \begin{itemize}
       \item \url{https://christophm.github.io/interpretable-ml-book/}
-      \item \url{https://compstat-lmu.github.io/iml_methods_limitations/}
+      %\item \url{https://compstat-lmu.github.io/iml_methods_limitations/}
       \item \url{https://ema.drwhy.ai/}
   \end{itemize}
 \end{itemize}
@@ -328,14 +325,12 @@ $\to$ Give us some feedback and we will improve the course!
     \end{itemize}
     \item If you find bugs in the slides or exercises,\\ students from Hannover can obtain bonus points:
     \begin{itemize}
-        \item 1 point for every major bug in an equation
-        \item 0.5 point for every typo in the slides
-        \item 1 point for every code bug in the exercise
+        \item 0.5 point for every major bug in an equation
+        \item 0.1 point for every typo in the slides
+        \item 0.5 point for every code bug in the exercise
     \end{itemize}
-    \item At most 10 points 
+    \item At most 3 points -- 1 grading boost
     \item Submit a PR to our repos and ensure that we can decipher your real name
-    \medskip
-    \item Overall, you cannot obtain more than $25$ bonus points from exercise + these
 \end{itemize}
 
 

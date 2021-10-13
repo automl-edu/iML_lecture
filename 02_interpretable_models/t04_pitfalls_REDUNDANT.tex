@@ -18,8 +18,8 @@
         \begin{itemize}
             \item Most models have some underlying assumptions
             \begin{itemize}
-                \item if there are feature interactions for a linear regression model (e.g., strong correlation), interpreting the weights is meaningless
-                \item[$\leadsto$] there could be many weights explaining the data with the same quality but different explanations
+                \item if there are feature interactions for a linear regression model (e.g., strong correlation),\\ interpreting the weights can be meaningless
+                \item[$\leadsto$] there could be many weights explaining the data with the same predictive performance but different explanations
             \end{itemize}
         \end{itemize}
     
@@ -35,6 +35,8 @@
             \begin{itemize}
                 \item complex feature transformations with GAMs
                 \item very deep trees
+                \item complex ensembles of trees
+                \item \ldots
             \end{itemize}
             
         \end{itemize}
@@ -43,7 +45,36 @@
     
     %-----------------------------------------------------------------------------------------------------------------------------
     
-    \begin{frame}[c]{3. Poor Model Fit}
+        \begin{frame}[c]{3. Full Predictive Pipeline}
+    
+        \begin{itemize}
+            \item Often, we don't only fit a single model to the data at hand
+            \item But, we use several pre-processing steps beforehand, for example
+            \begin{itemize}
+                \item Feature normalization (e.g. standardization)
+                \begin{itemize}
+                    \item with feature normalization, it gets hard to interpret weights
+                    \item without feature normalization, different feature scales might be reflected in your model weights
+                \end{itemize}
+                \pause
+                \item Dimension reduction, e.g., 
+                \begin{itemize}
+                    \item Interpreting the space of a PCA is hard
+                \end{itemize}
+                \pause
+                \item Feature imputation for missing features
+                \begin{itemize}
+                    \item Your model might put a lot of weights on imputed features (i.e., never really observed features) 
+                \end{itemize}
+            \end{itemize}
+            
+        \end{itemize}
+    
+    \end{frame}
+    
+    %-----------------------------------------------------------------------------------------------------------------------------
+    
+    \begin{frame}[c]{4. Poor Model Fit}
     
         \begin{itemize}
             \item If the model does not fit well the data, there is not point in interpreting the model;\\
