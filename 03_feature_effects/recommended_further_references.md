@@ -1,0 +1,3 @@
+* [Peeking Inside the Black Box: Visualizing Statistical Learning with Plots of Individual Conditional Expectation](https://arxiv.org/abs/1309.6392)
+* [Sampling, Intervention, Prediction, Aggregation: A Generalized Framework for Model-Agnostic Interpretations](https://arxiv.org/abs/1904.03959)
+* [Visualizing the Effects of Predictor Variables in Black Box Supervised Learning Models](https://arxiv.org/abs/1612.08468)
