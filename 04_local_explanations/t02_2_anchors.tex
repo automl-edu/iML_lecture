@@ -126,14 +126,17 @@ with
 \begin{frame}[c]{Relaxing Anchor's Definition}
 
 \begin{itemize}
-    \item combinatorial problem to find an anchor
-    \item hard to evaluate precision in a continuous or large feature space
+    \item Challenges:
+    \begin{itemize}
+        \item combinatorial problem to find an anchor
+        \item hard to evaluate precision in a continuous or large feature space
+    \end{itemize}
     \item Relaxation of the problem:
 \end{itemize}
 
 $$P( prec(A) \geq \tau) \geq 1  - \delta \text{ with } prec(A)  = \mathbb{E}_{\mathcal{D}_x(z\mid A)} [\mathbb{1}_{f(x) = f(z)}] $$
 
-with $\delta$ being a probability threshold to each desired precision.
+with $\delta$ being a probability threshold to desired precision.
 
 \pause
 \medskip
@@ -155,7 +158,7 @@ $\leadsto$ If $\delta$ is very small:
     \item Additionaly, we want to maximize the coverage of the anchor\\ w.r.t. to the neighborhood distribution $\mathcal{D}$
 \end{itemize}
 
-$$\max_{A} cov(A) = \max_{A} \mathbb{E}_{\mathcal{D}(z)[A(z)]} $$
+$$\max_{A} cov(A) = \max_{A} \mathbb{E}_{\mathcal{D}_{(z)}[A(z)]} $$
 
 
 \end{frame}
@@ -171,6 +174,7 @@ $$\max_{A} cov(A) = \max_{A} \mathbb{E}_{\mathcal{D}(z)[A(z)]} $$
 \begin{itemize}
     \item Bound $\tau$ on precision with confidence $\delta$
     \item and maximization of coverage
+    \item[$\leadsto$] as long as precision bound is met, higher coverage is more important than higher precision
 \end{itemize}
 
 
@@ -183,12 +187,30 @@ $$\max_{A} cov(A) = \max_{A} \mathbb{E}_{\mathcal{D}(z)[A(z)]} $$
 \begin{enumerate}
 
     \item \textbf{Initialization} One anchor for each $x_i$ in given $x$
-    \item \textbf{Candidate Update} Add another $x_i$ not considered in A so far
-    \item \textbf{Best Candidate Identification} use multi-armed-bandit approach to focus investment in model predictions into promising anchors 
+    \begin{itemize}
+        \item[$\leadsto$] initial population of anchors as large as number of dimensions
+    \end{itemize}
+    \pause
+    \item \textbf{Candidate Update} Add another constraint on $x_i$ not considered in A so far
+    \pause
+    \item \textbf{Best Candidate Identification} use multi-armed-bandit approach to focus compute time on model predictions on promising anchors 
+    \begin{itemize}
+        \item evaluate more neighbors for anchors with potentially high precision (i.e. pay-off of bandit)
+        \item certainty regarding $P(prec(A) \geq \tau)$ increases
+    \end{itemize}
+    \pause
     \item \textbf{Selection} Use beam search to only consider $B$ best anchors in each iteration 
+    \begin{itemize}
+        \item since in each round another constraint is added to $A$ and each $x_i$ can only be covered by a single constraint, there can be at most as many iterations as there are features
+        \item early termination when $P(prec(A) \geq \tau) \geq 1 - \delta$ is satisfied
+        \begin{itemize}
+            \item more constraints in later iterations would only decrease coverage
+        \end{itemize}
+        \item[$\leadsto$] Return anchor with highest coverage 
+    \end{itemize}
 \end{enumerate}
-
 \end{frame}
+
 
 
 \end{document}

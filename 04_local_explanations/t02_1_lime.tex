@@ -34,7 +34,7 @@
 	LIME provides a local explanation for a black-box model $\hat{f}$ in form of a model $g \in \mathcal{G}$ with $\mathcal{G}$ as the class of potential (interpretable) models. This model $g$ should have two characteristics:
 	\begin{enumerate}
 		\item It should be \textbf{interpretable}, i.e. provide qualitative understanding between the input variables and the response that are easy to understand.  
-		\item It should be \textbf{locally faithful}, i.e. it should behave similarly to $f$ in the vicinity of the instance being predicted. This characteristic is also called local fidelity. 
+		\item It should be \textbf{locally faithful}, i.e. it should behave similarly to $\hat{f}$ in the vicinity of the instance being predicted. This characteristic is also called local fidelity. 
 	\end{enumerate}
 	Formally, we want to receive a model $g$ with minimal complexity and maximal local-fidelity. 
 \end{frame}
@@ -44,7 +44,7 @@ We can measure the complexity of a model $g$ using $J(g)$. \\
 \vspace{0.5cm}
  	\textbf{Example: Linear model}\\
  	Let $\mathcal{G} = \left\{g: \mathcal{X} \to \mathbb{R} ~|~g(x) = s(w^\top x)\right\}$ be the class of linear models with $s(\cdot)$ being either the identity function for linear regression or the logistic sigmoid function for logistic regression. \\
- 	Then, $J(g) = \sum_{j = 1}^p \mathrm{I}_{\{ \theta_j \neq 0 \}}$ could be the L$_0$ loss, i.e. the number of non-zero coefficients. 
+ 	Then, $J(g) = \sum_{j = 1}^p \mathrm{I}_{\{ w_j \neq 0 \}}$ could be the L$_0$ loss, i.e. the number of non-zero coefficients. 
  	\vspace{0.5cm}
  	
  	\textbf{Example: Tree}\\
@@ -55,9 +55,9 @@ We can measure the complexity of a model $g$ using $J(g)$. \\
 \begin{frame}{Local Model Fidelity}
 \vspace{-2em}
  		\begin{itemize}
- 			\item A model $g$ is locally faithful to $f$ w.r.t. a point $x$\\ if for points $z \in \mathcal{Z} \subseteq \mathbb{R}^p$ close to $x$, the predictions of $g(z)$ are close to $\hat{f}(z)$. 
+ 			\item A model $g$ is locally faithful to $\hat{f}$ w.r.t. a point $x$\\ if for points $z \in \mathcal{Z} \subseteq \mathbb{R}^p$ close to $x$, the predictions of $g(z)$ are close to $\hat{f}(z)$. 
  			\pause
- 			 \item In an optimization task: the closer $z$ is to $x$, the closer $g(x)$ should be to $\hat{f}(z)$.  
+ 			 \item In an optimization task: the closer $z$ is to $x$, the closer $g(z)$ should be to $\hat{f}(z)$.  
  			 \pause
  			\item For this definition we need two measures:
  			\begin{enumerate}
@@ -83,14 +83,14 @@ We can measure the complexity of a model $g$ using $J(g)$. \\
 		$$ \argmin_{g \in \mathcal{G}} L(\hat{f}, g, n) + J(g)$$
 		\item In practice, LIME only optimizes $L(\hat{f}, g, n)$ (model-fidelity). 	
 		\item The model complexity ($J(g)$) is determined by users beforehand by restricting the class $\mathcal{G}$. For example, users could only consider sparse linear models. 
-		\item Since we want a \textbf{model-agnostic} explainer, we need to optimize $L(\hat{f}, g, n)$ without making any assumptions about $f$. 
+		\item Since we want a \textbf{model-agnostic} explainer, we need to optimize $L(\hat{f}, g, n)$ without making any assumptions about $\hat{f}$. 
 		\item Therefore, we learn $g$ only approximately with the following algorithm.  
 		\end{itemize}
 \end{frame} 
 %----------------------------------------------
 \begin{frame}{LIME Algorithm \lit{Ribeiro et al. 2016}{https://arxiv.org/abs/1602.04938}}
     \vspace{-1em}
-		For the algorithm, we need a pre-trained model $f$, $x$ whose prediction we want to explain and model class $\mathcal{G}$.\\ \vspace{0.5cm}
+		For the algorithm, we need a pre-trained model $\hat{f}$, $x$ whose prediction we want to explain and model class $\mathcal{G}$.\\ \vspace{0.5cm}
 		We illustrate the steps of the algorithm with a classification example: 
 		\begin{itemize}
 			\item The light/dark background represents the prediction surface of a \alert{classifier} $\hat{f}: \mathbb{R}^2 \to \{0, 1\}$.

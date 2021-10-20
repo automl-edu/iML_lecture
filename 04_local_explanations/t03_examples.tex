@@ -14,6 +14,35 @@
 	%-----------------------------------------------------------------------------------------------------------------------------
 
 \begin{frame}{Credit Dataset}
+    \vspace{-2em}
+	\begin{itemize}
+		\item We demonstrate local explanation methods on the German credit classification dataset from Kaggle. \href{https://www.kaggle.com/uciml/german-credit}{\beamergotobutton{Click here}}
+		\item The dataset has 522 observations and nine features wrt credit and customer information.
+		\item The binary target indicates whether a customer has a `good' or `bad' credit risk.  
+		\item We combined categories with few case numbers. 
+	\end{itemize}
+		\begin{center}
+			\footnotesize
+			\begin{tabular}{ccc}
+				\toprule
+				name & type & range\\
+				\midrule
+				age & numeric & [19, 75]\\
+				sex & factor & \{male, female\}\\
+				job & factor & \{0, 1, 2, 3\}\\
+				housing & factor & \{free, own, rent\}\\
+				saving.accounts & factor & \{little, moderate, rich\}\\
+				checking.accounts & factor & \{little, moderate, rich\}\\
+				credit.amount & numeric & [276, 18424]\\
+				duration & numeric &  [6, 72]\\
+				purpose & numeric &  \{others, car, furniture, radio/TV\}\\
+				risk & factor & \{good, bad\}\\
+				\bottomrule
+			\end{tabular}
+		\end{center}
+\end{frame}
+
+\begin{frame}{Credit Dataset}
 
 \vspace{-1.5em}
 	\begin{itemize}
@@ -161,41 +190,64 @@
 	\end{center}
 \end{frame}
 
-
-\begin{frame}[c]{Example CE: Credit Data}
-	\begin{itemize}
-		\item Model: SVM with RBF kernel
-		\item $x$ is the first data point of the dataset with $P(y = good)  = 0.34$ of being a ``good" customer.  
-		\item Our desired goal is to increase the probability to $[0.5, 1]$.
-		\item Mulit-objective CE found 82 counterfactuals.
-		\item All counterfactuals proposed changes to the credit duration and many to the credit amount.  
-	\end{itemize}
-	
-\end{frame}
-\begin{frame}{Example CE: Credit Data}
+\begin{frame}{Anchors for Tabular Data: Bike Rental I \lit{T. Goerke \& M. Lang}{https://christophm.github.io/interpretable-ml-book/anchors.html}}
     \vspace{-2em}
-	\begin{columns}
-				\begin{column}{0.5\textwidth}  
-			\begin{center}
-				\includegraphics[width=0.6\textwidth]{figure/counterfactuals_credit_parallel}
-			\end{center}
-			
-		\end{column}
-		\begin{column}{0.5\textwidth}
-			\begin{center}
-				\includegraphics[width=.8\textwidth]{figure/counterfactuals_credit_heat}
-			\end{center}
-				
-		\end{column}
-	\end{columns}
-	
-	\begin{itemize}
-	    \item Parallel plot (left): all counterfactuals had values equal to or smaller than the values of $x$.
-		\item Surface plot (right): why these feature changes are recommended. 
-		\item Counterfactuals in the lower left corner seem to be in a less favorable region far from $x$, but they are in high density areas close to training samples (indicated by histograms).
-	\end{itemize}
-		
+    \begin{itemize}
+        \item Task: Classify whether the number of rented bikes is above or below the average?
+    \end{itemize}
+    
+    \centering
+    \includegraphics[width=0.6\textwidth]{04_local_explanations/figure/bike_anchor1.png}
+    
 \end{frame}
+
+\begin{frame}{Anchors for Tabular Data: Bike Rental II \lit{T. Goerke \& M. Lang}{https://christophm.github.io/interpretable-ml-book/anchors.html}}
+    
+    \vspace{-2em}
+    \begin{itemize}
+        \item Task: Classify whether the number of rented bikes is above or below the average?
+    \end{itemize}
+    
+    \centering
+    \includegraphics[width=0.62\textwidth]{04_local_explanations/figure/bike_anchor2.png}
+    
+\end{frame}
+
+% Counterfactuals Examples
+% \begin{frame}[c]{Example CE: Credit Data}
+% 	\begin{itemize}
+% 		\item Model: SVM with RBF kernel
+% 		\item $x$ is the first data point of the dataset with $P(y = good)  = 0.34$ of being a ``good" customer.  
+% 		\item Our desired goal is to increase the probability to $[0.5, 1]$.
+% 		\item Mulit-objective CE found 82 counterfactuals.
+% 		\item All counterfactuals proposed changes to the credit duration and many to the credit amount.  
+% 	\end{itemize}
+	
+% \end{frame}
+% \begin{frame}{Example CE: Credit Data}
+%     \vspace{-2em}
+% 	\begin{columns}
+% 				\begin{column}{0.5\textwidth}  
+% 			\begin{center}
+% 				\includegraphics[width=0.6\textwidth]{figure/counterfactuals_credit_parallel}
+% 			\end{center}
+			
+% 		\end{column}
+% 		\begin{column}{0.5\textwidth}
+% 			\begin{center}
+% 				\includegraphics[width=.8\textwidth]{figure/counterfactuals_credit_heat}
+% 			\end{center}
+				
+% 		\end{column}
+% 	\end{columns}
+	
+% 	\begin{itemize}
+% 	    \item Parallel plot (left): all counterfactuals had values equal to or smaller than the values of $x$.
+% 		\item Surface plot (right): why these feature changes are recommended. 
+% 		\item Counterfactuals in the lower left corner seem to be in a less favorable region far from $x$, but they are in high density areas close to training samples (indicated by histograms).
+% 	\end{itemize}
+		
+% \end{frame}
 
 
 \end{document}
