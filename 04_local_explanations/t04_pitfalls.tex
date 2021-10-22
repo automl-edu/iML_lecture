@@ -2,7 +2,7 @@
 \input{../latex_main/preamble}
 
 \title[Introduction]{iML: Local Explanations}
-\subtitle{Motivation}
+\subtitle{Pitfalls}
 
 %\institute{}
 
@@ -37,7 +37,7 @@
      	\end{center}
      \item A larger kernel width means that instances that are farther away also influence the model such that we do not receive a local but a global surrogate model. 
      \item Prefer smaller kernel widths s.t. an instance must be very close to influence the local model.  
-     \item If the kernel with is set too small, we only fit a local model based on a few observations which carries the risk to fit noise.   
+     \item If the kernel width is set too small, we only fit a local model based on a few observations which carries the risk to fit noise.   
 	\item Multiple software package use another default standardized distance: the Gower proximity where no kernel width needs to be specified. However, experiments showed that since also data points far away receive a weight $ > 0$, their resulting explanations are rather global surrogates than local surrogates.   
 \end{itemize}
 
@@ -107,7 +107,7 @@
 \textbf{Pitfall 5: Possibility to hide biases}
 \begin{itemize}
 	\item Data scientists could manipulate their model to hide biases. 
-	\item Sampled instances for the surrogate model could be out of the input data distribution if we do not account for feature dependencies. 
+	\item Sampled instances for the surrogate model could be out of the input data distribution\\ if we do not account for feature dependencies. 
 	\pause
 	\item Build a classifier that detects whether a given data point is an out-of-distribution sample or not using the original training data and data sampled by LIME. 
 	\item If a new data point has the same distribution as the training data, the prediction of the biased classifier is returned. If a new data point is out-of-distribution (usually samples for the surrogate models), the unbiased prediction is returned.
@@ -149,7 +149,7 @@
 
 \end{frame}
 
-\begin{frame}[c]{LIME Pitfalls}
+\begin{frame}[c]{Conclusion}
 % \textbf{Pitfall 7: Definition of superpixels}
 % \begin{itemize}
 % 	\item Another source of instability concerns the definition of superpixels for image data. 
@@ -160,34 +160,42 @@
 
 %\bigskip
 %\pause
-\alert{Conclusion: LIME should only be used with great caution.}
+
+{\huge
+\alert{LIME (and related approaches) should only be used with great caution.}}
+
+\pause
+
+\bigskip
+(This applies to all explainablity techniques ;-) )
 
 \end{frame}
 
 
-\begin{frame}{Problems, Pitfalls, \& Limitations of CEs}
-\begin{itemize}
-    \item \textbf{Illusion of model understanding:} 
-    CEs explain ML decisions by pointing to few specific alternatives. This reduces complexity, but is limited in explanatory power. Psychologists showed that even though the perceived model-understanding of end-users increases, the objective model-understanding remains unchanged.
-    \pause
-    \item \textbf{Finding the right metric:} Similarity is the crucial concept for finding good CEs. However, our concept of similarity is context and domain dependent. E.g. while L$_1$ can be a reasonable notion for tabular data, it is counterintuitive for image data. Sparsity is often desirable for end-users but not for data scientists searching for biases in the model.
-    \pause
-    \item \textbf{Confusing Model and Real-World:} As pointed out before, explanations of the model do not easily transfer to the process in which a model is applied. This information should be conveyed to the end-user.
-\end{itemize}
+% \begin{frame}{Problems, Pitfalls, \& Limitations of CEs}
+% \begin{itemize}
+%     \item \textbf{Illusion of model understanding:} 
+%     CEs explain ML decisions by pointing to few specific alternatives. This reduces complexity, but is limited in explanatory power. Psychologists showed that even though the perceived model-understanding of end-users increases, the objective model-understanding remains unchanged.
+%     \pause
+%     \item \textbf{Finding the right metric:} Similarity is the crucial concept for finding good CEs. However, our concept of similarity is context and domain dependent. E.g. while L$_1$ can be a reasonable notion for tabular data, it is counterintuitive for image data. Sparsity is often desirable for end-users but not for data scientists searching for biases in the model.
+%     \pause
+%     \item \textbf{Confusing Model and Real-World:} As pointed out before, explanations of the model do not easily transfer to the process in which a model is applied. This information should be conveyed to the end-user.
+% \end{itemize}
     
-\end{frame}
-\begin{frame}{Problems, Pitfalls, \& Limitations of CEs}
-\begin{itemize}
-    \item \textbf{Disclosing too much information:} CEs can reveal too much information about the model and help potential attackers.
-    \pause
-    \item \textbf{Rashomon effect:} One, few, all? Which CEs should be shown to the end-user? There is no universal solutions, the right way depends on the end-users temporal resources and knowledge. 
-    \pause
-    \item \textbf{Actionability vs. fairness:} Some authors suggest to focus only on the actionability of CEs. However, this counteract functions like contestability. E.g., if ethnicity is not permuted in a CE since it is not actionable this could lead to hiding racial biases in the model.
-    \pause
-    \item \textbf{Attacking CEs:} Researchers can create models with great performance, which generate arbitrary explanations specified by the ML developer. Thus, the question is how faithful CEs are to the models underlying mechanism.
-    \pause
-    \item \textbf{Assumption of constant model:} To provide guidance for the future, CEs assume that their underlying model would not change in the future. However, in reality this assumption is often violated and CEs are not reliable anymore. 
-\end{itemize}
+% \end{frame}
+% \begin{frame}{Problems, Pitfalls, \& Limitations of CEs}
+% \begin{itemize}
+%     \item \textbf{Disclosing too much information:} CEs can reveal too much information about the model and help potential attackers.
+%     \pause
+%     \item \textbf{Rashomon effect:} One, few, all? Which CEs should be shown to the end-user? There is no universal solutions, the right way depends on the end-users temporal resources and knowledge. 
+%     \pause
+%     \item \textbf{Actionability vs. fairness:} Some authors suggest to focus only on the actionability of CEs. However, this counteract functions like contestability. E.g., if ethnicity is not permuted in a CE since it is not actionable this could lead to hiding racial biases in the model.
+%     \pause
+%     \item \textbf{Attacking CEs:} Researchers can create models with great performance, which generate arbitrary explanations specified by the ML developer. Thus, the question is how faithful CEs are to the models underlying mechanism.
+%     \pause
+%     \item \textbf{Assumption of constant model:} To provide guidance for the future, CEs assume that their underlying model would not change in the future. However, in reality this assumption is often violated and CEs are not reliable anymore. 
+% \end{itemize}
 
-\end{frame}
+%\end{frame}
+
 \end{document}
