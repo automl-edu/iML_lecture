@@ -40,7 +40,7 @@
 	    \item[$\leadsto$] Why?
 	    \bigskip
         \item Possible approaches: linear models or LIME
-        \item \alert{New question:} Under all possible subsets of features, how much would feature $S$ contribute to the prediction?
+        \item \alert{New question:} Under all possible subsets of features,\\ how much would the set of features $S$ contribute to the prediction?
 	\end{itemize}
 	
 \end{frame}
@@ -50,7 +50,7 @@
 	\begin{itemize}
 	    \item Origin in game theory \lit{Shapley 1953}{}
 	    \begin{itemize}
-	        \item How much does a player contributes to the total payout (i.e., gain) under different coalitions with other players?
+	        \item How much does a player contributes to the total payout (i.e., gain)\\ under different coalitions with other players?
 	    \end{itemize}
 	    \pause
 	    \item Relation to iML:
@@ -61,7 +61,13 @@
 	    \end{itemize}
     	\pause
     	\smallskip
-    	\item The answer could be: park close by $\leadsto$ 30k, 50m$^2$ $\leadsto$ 10k, 2nd floor $\leadsto$ 0k, pets banned $\leadsto$ -50k
+    	\item The answer could be: 
+    	\begin{itemize}
+    	    \item park close by $\leadsto$ 30k
+    	    \item 50m$^2$ $\leadsto$ 10k
+    	    \item 2nd floor $\leadsto$ 0k
+    	    \item pets banned $\leadsto$ -50k
+    	\end{itemize}
     	\pause
     	\smallskip
     	\item[$\leadsto$] Shapley value: Average marginal contribution of a feature value across all possible coalitions.

@@ -13,11 +13,16 @@
 	
 \begin{frame}{Cooperative Games}
 \begin{itemize}
-  \item In cooperative games, a set of players $P$ with $P = \{1, \hdots, p\}$ forms a coalition $S \subseteq P$. 
-  \item A value function $v(S): 2^{|P|}\mapsto \mathbb{R}$ describes the payout (or gain) achieved by any coalition $\forall S \subseteq P$. The value of the empty coalition must be zero: $v(\emptyset) = 0$.
+  \item In cooperative games, a \alert{set of players $P$} with $P = \{1, \hdots, p\}$ forms a coalition $S \subseteq P$. 
+  \pause
+  \item A \alert{value function $v(S): 2^{|P|}\mapsto \mathbb{R}$} describes the payout (or gain) achieved by any coalition $\forall S \subseteq P$. The value of the empty coalition must be zero: $v(\emptyset) = 0$.
+  \pause
   \item As some players contribute more than others, we are interested to fairly divide the total payout $v(P)$ among the players.
-  \item We call the payout per player $\phi_j$, $j \in P$.
-  \item What would be properties of a a fair distribution of the payout?
+  \pause
+  \item We call the \alert{payout per player $\phi_j$}, $j \in P$.
+  \pause
+  \bigskip
+  \item[$\leadsto$] What would be properties of a fair distribution of the payout?
 \end{itemize}
 \end{frame}
 
@@ -28,7 +33,7 @@
     \item \textbf{Efficiency}: Player contributions add up to the total payout of the game:
       $\sum\nolimits_{j=1}^p\phi_j = v(P)$
     \pause
-    \item \textbf{Symmetry}: Players $j,k \in P$ who contribute the same to any coalition get the same payout: \\
+    \item \textbf{Symmetry}: Players $j\in P$ and $k \in P$ who contribute the same to any coalition get the same payout: \\
       If $v(S \cup \{j\}) = v(S \cup \{k\})$ for all $S \subseteq P - \{j,k\}$, then $\phi_j=\phi_k$
     \pause
     \item \textbf{Dummy / Null Player}: The payout is zero for players who don't contribute to the value of any coalition: \\
@@ -51,7 +56,7 @@
   \item The \textbf{Shapley value} assigns a value to each player according to the marginal contribution of each player in all possible coalitions.
   \pause
   \smallskip
-  \item $\phi_j = \sum_{S \subseteq Pnoj} \frac{|S|!(|P| - |S| - 1)!}{|P|!}(v(S \cup \{j\}) - v(S))$
+  \item $\phi_j = \sum_{S \subseteq P - \{j\} } \frac{|S|!(|P| - |S| - 1)!}{|P|!}(v(S \cup \{j\}) - v(S))$
   \item $v(S \cup \{j\}) - v(S)$ is the marginal contribution of player $j$ to coalition $S$.
   \pause
   \smallskip
@@ -69,10 +74,10 @@ The Shapley value was introduced as summation over sets $S$, but it's also possi
 This also explains where the factor $\frac{|S|!(|P| - |S| - 1)!}{|P|!}$ comes from.
 \begin{itemize}
   \item Let $\Pi$ be all possible orders of players ($|P|!$ in total).
-  \item Then: $\phi_j = \frac{1}{|P|!} \sum_{\tau \in \Pi} (v(Pre(\tau,j) \cup \{j\}) - v(Pre(\tau,j)))$
-  \item $Pre(\tau,j)$ is the set of players before player $j$ in order $\tau$.
-  \pause
+  \item Let $Pre(\tau,j)$ be the set of players before player $j$ in order $\tau$.
   \item For example players a,b,c: $\Pi = \{(a,b,c), (a,c,b), (b,a,c), (b,c,a), (c,a,b), (c,b,a)\}$. If $\tau = (b,a,c)$ and $j=c$, then $Pre(\tau,j) = \{b, a\}$.
+  \pause
+  \item Then: $\phi_j = \frac{1}{|P|!} \sum_{\tau \in \Pi} (v(Pre(\tau,j) \cup \{j\}) - v(Pre(\tau,j)))$
   \pause
   \item For the Shapley value computation via order definition, we sum the marginal contribution twice for orders that yield set $S = \{a,b\}$, which in the set definition has the weight $2! (3 - 2 - 1)! = 2 \cdot 0! = 2$.
 \end{itemize}
@@ -82,11 +87,10 @@ This also explains where the factor $\frac{|S|!(|P| - |S| - 1)!}{|P|!}$ comes fr
 \begin{frame}{Definition via Orders}
   
 \begin{itemize}
-  \item More general, the Shapley value definition via orders is equivalent to the definition via sets, since the number of orders which yield the same coalition $S$ is  $|S|!(|P| - |S| - 1)!$: There are $|S|!$ possible orders of players within coalition $S$ and $(|P| - |S| - 1)!$ possible orders of players without $S$ and $j$.
-  \pause
-  \item Relevance of the order definition: The Shapley value can be approximated by sampling permutations. Instead of producing all $|P|!$ permutations, a fixed number of $M$ can be sampled and averaged to approximate the Shapley values.
+  \item More general, the Shapley value definition via orders is equivalent to the definition via sets, since the number of orders which yield the same coalition $S$ is  $|S|!(|P| - |S| - 1)!$:\\ There are $|S|!$ possible orders of players within coalition $S$ and $(|P| - |S| - 1)!$ possible orders of players without $S$ and $j$.
 \end{itemize}
 
+\centering
   \begin{tabular}{|c|c|c|c|c|c|c|}
     \multicolumn{3}{c}{\enspace\raisebox{-3.3ex}[0pt][2.6ex]{$ \overbrace{\vphantom{-}\hspace{9em}}^{|S|! \text{ permutations}}$}} &
     \multicolumn{1}{c}{} & 
@@ -100,12 +104,14 @@ This also explains where the factor $\frac{|S|!(|P| - |S| - 1)!}{|P|!}$ comes fr
     \multicolumn{3}{c}{Players before player $j$} & \multicolumn{1}{c}{player $j$} & \multicolumn{3}{c}{Players after player $j$} \\
   \end{tabular}
 
+\begin{itemize}
+  \item Relevance of the order definition: The Shapley value can be approximated by sampling permutations. Instead of producing all $|P|!$ permutations, a fixed number of $M$ can be sampled and averaged to approximate the Shapley values.
+\end{itemize}
 
 \end{frame}
 
-\frame{
-  \frametitle{Shapley Values - Illustration}
-The Shapley value of a player $j=2$ is the marginal contribution to the value function when Player $2$ enters an arbitrary coalition. \\
+\begin{frame}{Shapley Values - Illustration}
+The Shapley value of a player $j=2$ is the marginal contribution to the value function when Player~$2$ enters an arbitrary coalition. \\
 \only<1>{Here, Player $2$ enters the coalition after Player $1$, resulting in a value change of $v(\{1,2\}) - v(\{1\}) = 24-12 = 12$. Overall, the coalition has a value of $v(\{1,2,3\}) = 36.$}
 \only<2>{We produce all possible orders of player coalitions and measure the value change if Player $2$ enters the coalition.}
 \begin{center}
@@ -117,7 +123,9 @@ The Shapley value of a player $j=2$ is the marginal contribution to the value fu
   }
 \end{center}
 
-}
+\end{frame}
+
+
 \begin{frame}{Proof of Axioms}
   The Shapley values fulfills all the 4 axioms.
   Symmetry, Dummy and Additivity relatively easy to proof:
@@ -128,14 +136,16 @@ The Shapley value of a player $j=2$ is the marginal contribution to the value fu
         \item Then all marginal contributions are equal: $v(S \cup \{j\}) -  v(S) = v(S \cup \{k\}) -  v(S), \forall S \subseteq P - \{j,k\}$
         \item Consequently, $\phi_j = \phi_k$.
     \end{itemize}
+  \pause
   \item \textbf{Dummy}: Let's assume we have Player $j$ such that for all $S \subseteq P$, we have $v(S) = v(S \cup \{j\})$. Then, each marginal contribution of player $j$ is zero, and therefore $\phi_j = 0$.
+  \pause
   \item \textbf{Additivity}:  Assume two games $v_1$ and $v_2$ and a third game which is the sum of both $v(S) = v_1(S) + v_2(S)$. The marginal contribution for all $S \subseteq P - \{j\}$ for game $v$ can be expressed as $v(S \cup \{j\}) - v(S) = v_1(S \cup \{j\}) - v_1(S) + v_2(S \cup \{j\}) - v_2(S)$. Since the Shapley value is additive in the marginal contributions, we can split the sum into two sums so that $\phi_{j,v} = \phi_{j, v_1} + \phi_{j,v_2}$.
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Proof of Axioms (cont'd)}
     
-Efficiency requires a bit more effort, see proof sketch:
+Efficiency requires a bit more effort; proof sketch:
   \begin{itemize}
   \item \textbf{Efficiency}: $v(P)$ exactly appears once per player ($=p$ times) for coalition $S = P - \{j\}$ with the weight $\frac{|P - 1|!(|P| - |P - 1| - 1)!}{|P|!} = \frac{1}{p}$ each. The values for all other coalitions $v(S), S \subseteq P \{j,k\}$ appear with both minus and plus signs that cancel each other out.
 \end{itemize}
@@ -165,7 +175,7 @@ Efficiency requires a bit more effort, see proof sketch:
          \item Feature selection: Attribute loss reduction to features. \lit{Cohen et al. 2005}{https://www.ijcai.org/Proceedings/05/Papers/0763.pdf}
          \item Quantify data value: Attribute loss reduction to data points. \lit{Ghorbani et al. 2019}{https://arxiv.org/abs/1904.02868}
          \item Algorithm Selection: Attribute loss reduction to algorithms of portfolios. \lit{Fréchette et al. 2016}{https://www.aaai.org/ocs/index.php/AAAI/AAAI16/paper/view/12495}
-         \item \textbf{Explain individual predictions}.
+         \item \alert{Explain individual predictions} $\leadsto$ local explanation.
        \end{itemize}
   \end{itemize}
 

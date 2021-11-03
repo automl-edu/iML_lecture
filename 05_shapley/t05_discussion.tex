@@ -17,7 +17,7 @@
         \item the \emph{efficiency} property ensures that there is a fair distribution between the prediction and the average prediction 
         \item proven by the solid theoretical foundation of Shapley values 
         \begin{itemize}
-            \item not given for most (all?) other methods discussed in this lecture
+            \item not given for most other methods discussed in this lecture series
         \end{itemize}
     \end{itemize}
     
@@ -36,6 +36,7 @@
         \bigskip
         \item[$\leadsto$] Approximation of Shapley values via sampling
         \item However, number of samples required for a good approximation is unknown a priori
+        \item Can still take quite some time and compute resources
     \end{itemize}
     
 \end{frame}
@@ -65,7 +66,7 @@
 \begin{frame}{Disadvantage: Hard to Act on It}
     
     \begin{itemize}
-        \item Counter factuals or LIME provide local explanations, which one can use to act on it\\ e.g., try to change features to obtain a more favorable outcome
+        \item Counterfactuals or LIME provide local explanations, which one can use to act on it\\ e.g., try to change features to obtain a more favorable outcome
         \item Shapley values "only" provide a single number per feature, but it does not tell you how to improve wrt these
         \begin{itemize}
             \item Even weights of a linear model provide more direction to act on it
@@ -83,7 +84,7 @@
         \begin{itemize}
             \item For example, the training data
         \end{itemize}
-        \item Often not possible if we only want to examine a foreign model
+        \item Often not available, if we only want to examine a foreign model
     \end{itemize}
     
 \end{frame}
