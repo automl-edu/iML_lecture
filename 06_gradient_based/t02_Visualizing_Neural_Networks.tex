@@ -1,0 +1,68 @@
+\documentclass[aspectratio=169]{../latex_main/tntbeamer}
+
+
+\input{../latex_main/preamble}
+
+\title{iML: Post-hoc Methods for Neural Networks}
+\subtitle{Visualizing Neural Networks}
+\begin{document}
+	\maketitle
+	\graphicspath{ {./figure/} }
+	
+\begin{frame}[c]{Inspecting the Model units}
+    \begin{itemize}
+        \item Neural Networks architectural units can be inspected to provide insights
+        \item What happens to the input signal as it travels through the network ?
+        \begin{itemize}
+            \item Activations: Activation in neural networks are sparse
+            \item Attention units: Encode the importance of input representation units
+        \end{itemize}
+    \end{itemize}
+    
+    \centering
+    \includegraphics[scale=1]{fertig}
+\end{frame}
+
+\begin{frame}{Visualizing Neural Network Architectural Units}
+    \begin{itemize}
+        \item Search for examples where individual features have high values —
+        \begin{itemize}
+            \item Either for a neuron at an individual position, or for an entire channel
+        \end{itemize}
+    \end{itemize}
+    
+    \includegraphics[scale=.47]{img180}
+\end{frame}
+    
+\begin{frame}{Visualizing Filters in a CNN}
+    \begin{itemize}
+        \item Most of the aggregated values at neurons do not result in activations
+        \item Find image patches in dataset that maximally activate/excite a unit
+    \end{itemize}
+    
+\end{frame}
+
+	
+\begin{frame}{Feature extraction evolution}
+    \begin{itemize}
+        \item Lower layers extract lower-level features
+        \item Higher layers compose extracted features to compose high-level features
+    \end{itemize}
+    \begin{figure}[h]
+         \includegraphics[scale=.5]{img241}
+         \centring
+         \includegraphics[scale=.5]{img245}
+         \hfill
+         \includegraphics[scale=.4]{img249}
+    \end{figure}
+\end{frame}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+\end{document}	
