@@ -16,7 +16,10 @@ jobs:
             "w03_feature_effects",
             "w04_local_explanations",
             "w05_shapley",
-            "w06_instance_wise_sel",
+            "w06_gradient_based",
+#            "w07_instance_wise_sel",
+#            "w08_examples",
+            "w10_conclusion",
           ]
         mode: [
                 "animation",
@@ -47,7 +50,10 @@ jobs:
             "w03_feature_effects",
             "w04_local_explanations",
             "w05_shapley",
-            "w06_instance_wise_sel",
+            "w06_gradient_based",
+#            "w07_instance_wise_sel",
+#            "w08_examples",
+            "w10_conclusion",
           ]
     steps:
       - uses: actions/checkout@v2
